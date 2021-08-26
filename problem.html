@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Flowgramming</title>
+    </head>
+    <body>
+        <h1>List of problems</h1>
+        <ul id="problems"></ul>
+        <form id="addproblem">
+            <input placeholder="Name" type="text" name="name" />
+            <input placeholder="Description" type="text" name="description" />
+            <button type="submit">Add</button>
+        </form>
+        <script src="js/build/codeVendor.js"></script>
+        <script src="js/build/codeMain.js"></script>
+        <script>
+            $('#addproblem').on('submit', function (event) {
+                event.preventDefault()
+                addProblem()
+            })
+            $('#problems').click(function (event) {
+                let id = $(event.target).attr('data-id')
+                openNewTab('viewProblem.html', id)
+            })
+
+            window.onload = () => {
+                fetch('http://localhost:4000/problems')
+                    .then((response) => response.json())
+                    .then((data) => {
+                        data.map((x) => {
+                            $('#problems').append(
+                                '<li data-id=' +
+                                    x._id +
+                                    '>' +
+                                    x.name +
+                                    '</li><button onclick="deleteProblem(\'' +
+                                    x._id +
+                                    '\')" type="submit">Delete</button>'
+                            )
+                        })
+                    })
+            }
+            function deleteProblem(id) {
+                return fetch('http://localhost:4000/problems/' + id, {
+                    method: 'DELETE',
+                }).then((response) => {
+                    location.reload()
+                })
+            }
+
+            async function addProblem() {
+                let formArray = $('#addproblem').serializeArray()
+                let returnArray = {}
+                for (let i = 0; i < formArray.length; i++) {
+                    returnArray[formArray[i]['name']] = formArray[i]['value']
+                }
+                const response = await fetch('http://localhost:4000/problems', {
+                    method: 'POST',
+                    mode: 'cors',
+                    referrerPolicy: 'no-referrer',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(returnArray),
+                })
+                location.reload()
+            }
+        </script>
+    </body>
+</html>
