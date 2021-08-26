@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Problem Statement</title>
+    </head>
+    <body>
+        <div id="problem"></div>
+    </body>
+    <script src="js/build/codeVendor.js"></script>
+    <script>
+        window.onload = () => {
+            let id = window.name
+            fetch('http://localhost:4000/problems/' + id)
+                .then((response) => response.json())
+                .then((x) => {
+                    $('#problem').append(
+                        '<h1>' +
+                            x.name +
+                            '</h1>' +
+                            '<p>' +
+                            x.description +
+                            '</p>'
+                    )
+                })
+        }
+    </script>
+</html>
