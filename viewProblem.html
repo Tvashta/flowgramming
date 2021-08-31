@@ -9,19 +9,58 @@
     </body>
     <script src="js/build/codeVendor.js"></script>
     <script>
+        function escapeHtml(string) {
+            let entityMap = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;',
+                '/': '&#x2F;',
+                '`': '&#x60;',
+                '=': '&#x3D;',
+            }
+            return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+                return entityMap[s]
+            })
+        }
+
         window.onload = () => {
             let id = window.name
             fetch('http://localhost:4000/problems/' + id)
                 .then((response) => response.json())
                 .then((x) => {
-                    $('#problem').append(
+                    let html =
                         '<h1>' +
-                            x.name +
-                            '</h1>' +
-                            '<p>' +
-                            x.description +
-                            '</p>'
-                    )
+                        x.name +
+                        '</h1>' +
+                        '<p>' +
+                        x.problemStatement +
+                        '</p><p>Constraints:</p>'
+                    x.constraints.map((y) => {
+                        html += '<p>' + escapeHtml(y) + '</p>'
+                    })
+                    html += '<p>Sample Input</p>'
+                    x.sampleInput.map((y) => {
+                        html += '<p>' + escapeHtml(y) + '</p>'
+                    })
+                    html += '<p>Sample Output</p>'
+                    x.sampleOutput.map((y) => {
+                        html += '<p>' + escapeHtml(y) + '</p>'
+                    })
+                    html +=
+                        '<p>Explanation</p><p>' +
+                        x.explanation +
+                        '</p>' +
+                        '<p>Time Limit</p><p>' +
+                        x.timeLimit +
+                        '</p><p>Memory Limit</p><p>' +
+                        x.memoryLimit +
+                        '</p><p>Problem Type</p>'
+                    x.problemType.map((y) => {
+                        html += '<p>' + escapeHtml(y) + '</p>'
+                    })
+                    $('#problem').append(html)
                 })
         }
     </script>

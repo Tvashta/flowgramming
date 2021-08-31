@@ -9,12 +9,104 @@
         <ul id="problems"></ul>
         <form id="addproblem">
             <input placeholder="Name" type="text" name="name" />
-            <input placeholder="Description" type="text" name="description" />
+            <input
+                placeholder="Problem Statement"
+                type="text"
+                name="problemStatement"
+            />
+            <div>
+                <ul id="constraintsList"></ul>
+                <input
+                    placeholder="Constraints"
+                    id="constraints"
+                    type="text"
+                    name="constraints"
+                />
+                <button
+                    onclick="addValue(event)"
+                    name="constraints"
+                    type="button"
+                >
+                    +
+                </button>
+            </div>
+            <div>
+                <ul id="sampleInputList"></ul>
+                <input
+                    placeholder="Sample Input"
+                    id="sampleInput"
+                    type="text"
+                    name="sampleInput"
+                />
+                <button
+                    onclick="addValue(event)"
+                    name="sampleInput"
+                    type="button"
+                >
+                    +
+                </button>
+            </div>
+            <div>
+                <ul id="sampleOutputList"></ul>
+                <input
+                    placeholder="Sample Output"
+                    id="sampleOutput"
+                    type="text"
+                    name="sampleOutput"
+                />
+                <button
+                    onclick="addValue(event)"
+                    name="sampleOutput"
+                    type="button"
+                >
+                    +
+                </button>
+            </div>
+            <input type="text" name="explanation" placeholder="Explanation" />
+            <!--    <input type='file' name='image'/>-->
+            <input
+                type="number"
+                name="timeLimit"
+                placeholder="Time Limit [in s]"
+            />
+            <input
+                type="number"
+                name="memoryLimit"
+                placeholder="Memory Limit [in MB]"
+            />
+            <div>
+                <ul id="problemTypeList"></ul>
+                <input
+                    placeholder="Problem Type"
+                    id="problemType"
+                    type="text"
+                    name="problemType"
+                />
+                <button
+                    onclick="addValue(event)"
+                    name="problemType"
+                    type="button"
+                >
+                    +
+                </button>
+            </div>
             <button type="submit">Add</button>
         </form>
         <script src="js/build/codeVendor.js"></script>
         <script src="js/build/codeMain.js"></script>
         <script>
+            var constraints = [],
+                sampleInput = [],
+                sampleOutput = [],
+                problemType = []
+
+            function addValue(e) {
+                let val = $(`#${e.target.name}`).val()
+                this[`${e.target.name}`].push(val)
+                $('#' + e.target.name).val('')
+                $(`#${e.target.name}List`).append('<li>' + val + '</li>')
+            }
+
             $('#addproblem').on('submit', function (event) {
                 event.preventDefault()
                 addProblem()
@@ -41,6 +133,7 @@
                         })
                     })
             }
+
             function deleteProblem(id) {
                 return fetch('http://localhost:4000/problems/' + id, {
                     method: 'DELETE',
@@ -51,11 +144,26 @@
 
             async function addProblem() {
                 let formArray = $('#addproblem').serializeArray()
-                let returnArray = {}
+                let formData = {}
                 for (let i = 0; i < formArray.length; i++) {
-                    returnArray[formArray[i]['name']] = formArray[i]['value']
+                    formData[formArray[i]['name']] = formArray[i]['value']
                 }
-                const response = await fetch('http://localhost:4000/problems', {
+                if (formData['constraints'] !== '')
+                    constraints.push(formData['constraints'])
+                formData['constraints'] = constraints
+
+                if (formData['sampleInput'] !== '')
+                    sampleInput.push(formData['sampleInput'])
+                formData['sampleInput'] = sampleInput
+
+                if (formData['sampleOutput'] !== '')
+                    sampleOutput.push(formData['sampleOutput'])
+                formData['sampleOutput'] = sampleOutput
+
+                if (formData['problemType'] !== '')
+                    problemType.push(formData['problemType'])
+                formData['problemType'] = problemType
+                await fetch('http://localhost:4000/problems', {
                     method: 'POST',
                     mode: 'cors',
                     referrerPolicy: 'no-referrer',
@@ -63,7 +171,7 @@
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(returnArray),
+                    body: JSON.stringify(formData),
                 })
                 location.reload()
             }
