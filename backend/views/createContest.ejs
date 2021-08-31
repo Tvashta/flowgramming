@@ -1,0 +1,47 @@
+<%- include ("./partials/header") %>
+<head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/createContest.css">
+</head>
+
+<div class="container contest-details">
+    <br>
+    <h2>New Contest</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Contest Name</td>
+                <td><input class="form-control" type="text"></td>
+            </tr>
+            <tr>
+                <td>Contest ID</td>
+                <td><input class="form-control" type="text"></td>
+            </tr>
+            <tr>
+                <td>Contest Description</td>
+                <td><textarea class="form-control" aria-label="With textarea"></textarea></td>
+            </tr>
+            <tr>
+                <td>Contest Start Time</td>
+                <td><input class="form-control" type="date"><input class="form-control" type="time"></td>
+            </tr>
+            <tr>
+                <td>Contest End Time</td>
+                <td><input class="form-control" type="date"><input class="form-control" type="time"></td>
+            </tr>
+            <tr>
+                <td>Contest Password</td>
+                <td><input class="form-control" type="text"></td>
+            </tr>
+            <tr>
+                <td>Problems</td>
+                <td>
+                    <input class='form-control' type='text' placeholder="Search for problems..">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-success btn-lg">Create Contest</button>
+</div>
+
+
+<%- include ("./partials/footer") %>
