@@ -19,12 +19,25 @@ mongoose.connect(
 )
 
 const problemSchema = new mongoose.Schema({
-    name: {
-        type: String,
+    name: String,
+    problemStatement: String,
+    constraints: [String],
+    sampleInput: [String],
+    sampleOutput: [String],
+    explanation: String,
+    image: {
+        data: Buffer,
+        contentType: String,
     },
-    description: {
-        type: String,
-    },
+    timeLimit: Number,
+    memoryLimit: Number,
+    authors: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
+    ],
+    problemType: [String],
 })
 
 let problemsModel = mongoose.model('Problems', problemSchema)
