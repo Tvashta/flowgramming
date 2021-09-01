@@ -22,7 +22,9 @@ mongoose
 var db = mongoose.connection
 
 var contestRouter = require('./contest')
+var problemRouter = require('./problem')
 app.use('/contest', contestRouter)
+app.use('/problems', problemRouter)
 
 const port = 5000
 

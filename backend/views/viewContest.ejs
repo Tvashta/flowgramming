@@ -8,7 +8,9 @@
         <h2><%=contest.name%></h2>
         <p><%=contest.description%></p>
         <div class="container">
+          <% if(contest.organizer) { %>
           <strong>Organizer: </strong> <%= contest.organizer.firstName%>  <%= contest.organizer.lastName %>
+          <% } %>
           <br>
           <strong>Contest Start Time: </strong> <%= contest.contestStartTime%> 
           <br>

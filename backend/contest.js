@@ -3,11 +3,15 @@ var router = express.Router()
 var Contest = require('../models/contest')
 var User = require('../models/user')
 var Problem = require('../models/problem')
-const { deleteOne } = require('../models/problem')
 var ejs = require('ejs')
 
 router.get('/create', (req, res) => {
-    res.render('createContest.ejs')
+    Problem.find({})
+            .populate('authors')
+            .exec((err, allProblems) => {
+                if (err) res.send(err);
+                res.render('createContest.ejs', {problems: allProblems })
+            });
 })
 
 router.get('/view/:id', (req, res) => {
@@ -16,10 +20,10 @@ router.get('/view/:id', (req, res) => {
         .populate('problems.problemObject')
         .populate('rankings.user')
         .exec((err, contest) => {
-            if (err) res.send(err)
-            res.render('viewContest.ejs', { contest: contest })
-        })
-})
+            if (err) res.send(err);
+            res.render('viewContest.ejs', { contest: contest });
+        });
+});
 
 // GET - view all contests.
 router.get('/all', (req, res) => {
@@ -35,12 +39,9 @@ router.get('/all', (req, res) => {
     }, 1400)
 })
 
-router.get('/test', (req, res) => {
-    res.status(200).json({
-        status: 'success',
-        message: 'Welcome To Testing API',
-    })
-})
+router.post('/test', (req, res) => {
+    console.log(req.body); 
+});
 
 // GET - view all ongoing contests.
 router.get('/ongoing', (req, res) => {
@@ -80,43 +81,51 @@ router.post('/new', (req, res) => {
                 console.log('Error in creating a new contest')
                 // TO-DO
             } else {
-                contestID = contest._id
-            }
-        })
-        if (newContest.organizer) {
-            User.findById(newContest.organizer)
-                .exec()
-                .then((organizer) => {
-                    Contest.findOne({ contestID: contestID })
+                if (newContest.organizer) {
+                    User.findById(newContest.organizer)
                         .exec()
-                        .then((contest) => {
-                            contest.organizer = organizer
-                            contest.save()
+                        .then((organizer) => {
+                            Contest.findOne({ contestID: contestID })
+                                .exec()
+                                .then((contest) => {
+                                    console.log("2", contest);
+                                    contest.organizer = organizer
+                                    contest.save()
+                                })
                         })
-                })
-        }
-        if (newContest.problems) {
-            newContest.problems.forEach((problem) => {
-                Problem.findById(problem)
-                    .exec()
-                    .then((problemObj) => {
-                        Contest.findOne({ contestID: contestID })
+                }
+                console.log("------------------------------", contestID);
+                if (newContest.problems) {
+                    var index = 0;
+                    newContest.problems.forEach((problem) => {
+                        
+                        Problem.findOne({name: problem})
                             .exec()
-                            .then((contest) => {
-                                contest.problems.push(problemObj)
-                                contest.save()
-                            })
+                            .then((problemObj) => {
+                                Contest.findOne({ contestID: contestID })
+                                    .exec()
+                                    .then((contest) => {
+                                        contest.problems.push({
+                                            problemObject: problemObj,
+                                            points: newContest.points[index]
+                                        })
+                                        contest.save()
+                                    })
+                            });
+                        index+=1;
                     })
-            })
-        }
-        Contest.findOne({ contestID: contestID }, (err, contest) => {
-            if (err) {
-                console.log('There was an error in contest creation')
-                // TO DO
-            } else {
-                res.status(200).json(contest)
+                }
+                Contest.findOne({ contestID: contestID }, (err, contest) => {
+                    if (err) {
+                        console.log('There was an error in contest creation')
+                        // TO DO
+                    } else {
+                        res.status(200).json(contest)
+                    }
+                })
             }
         })
+        
     }, 1200)
 })
 

@@ -6,3 +6,8 @@
 h2 {
     font-weight: bolder;
 }
+
+.problem {
+    border: 1px solid black;
+    padding: 5%;
+}
