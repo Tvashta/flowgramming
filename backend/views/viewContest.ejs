@@ -1,0 +1,59 @@
+<%- include ("./partials/header") %>
+<head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/viewContest.css">
+</head>
+
+<div class="container contest-details">
+    <div class="container p-4 information">
+        <h2><%=contest.name%></h2>
+        <p><%=contest.description%></p>
+        <div class="container">
+          <% if(contest.organizer) { %>
+          <strong>Organizer: </strong> <%= contest.organizer.firstName%>  <%= contest.organizer.lastName %>
+          <% } %>
+          <br>
+          <strong>Contest Start Time: </strong> <%= contest.contestStartTime%> 
+          <br>
+          <strong>Contest End Time: </strong> <%= contest.contestEndTime%>
+        </div>
+        <br>
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Problem Name</th>
+                <th scope="col">Points</th>
+                <th scope="col">Author</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% var index = 1; contest.problems.forEach((problem)=> { %>
+                  <tr>
+                    <th scope="row"><%=index%></th>
+                    <td><a href='/contest/problem/<%=problem.problemObject.name%>'><%=problem.problemObject.name%></a></td>
+                    <td><%= problem.points %></td>
+                    <% if(problem.problemObject.authors.length > 0) { %>
+                        <td><%= problem.problemObject.authors %></td>
+                    <% } else { %>
+                        <td>Test Author</td>
+                    <% } %>
+                  </tr>
+              <% index+=1; }) %>
+            </tbody>
+          </table>
+          <br>
+          <button class="btn btn-info float-md-right">Join Contest</button>
+          <br>
+          <br>
+          <h3>Rankings</h3>
+          <div class="container w-100 align-content-center" id="rankings-info-div">
+                Enter Contest to view rankings
+          </div>  
+    </div>
+    <div class="container metadata">
+
+    </div>
+</div>
+
+
+<%- include ("./partials/footer") %>

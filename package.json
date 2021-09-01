@@ -12,7 +12,7 @@
     },
     "scripts": {
         "start": "gulp",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "mocha --exit",
         "gulp": "gulp concat",
         "clean": "rm js/*.js && rm -rf js/vendor && rm css/*.css && rm -rf css/vendor && sed -i.bak 's/flowgramming-service-worker/flowgramming-v'\"`date +\"%s\"`\"'/' sw.js && sed -i.bak /build/d .gitignore",
         "copyright-header": "copyright-header -f license-header.js -i \"*.html *.js js/*.js css/*.css\""
@@ -23,10 +23,20 @@
         }
     },
     "dependencies": {
+        "axios": "^0.21.1",
+        "bcryptjs": "^2.4.3",
+        "chai": "^4.3.4",
+        "chai-http": "^4.3.0",
+        "dotenv": "^10.0.0",
+        "ejs": "^3.1.6",
+        "fetch": "^1.1.0",
         "gulp": "^4.0.2",
         "gulp-concat": "^2.6.1",
         "gulp-nodemon": "^2.5.0",
         "gulp-uglify-es": "^2.0.0",
-        "gulp-uglifycss": "^1.1.0"
+        "gulp-uglifycss": "^1.1.0",
+        "mocha": "^9.1.0",
+        "mongoose": "^6.0.2",
+        "supertest": "^6.1.6"
     }
 }
