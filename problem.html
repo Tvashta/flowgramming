@@ -2,96 +2,157 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+        />
         <title>Flowgramming</title>
+        <link
+            rel="stylesheet"
+            href="../assets/bootstrap/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i"
+        />
+        <link rel="stylesheet" href="../assets/fonts/ionicons.min.css" />
+        <link rel="stylesheet" href="../css/Contact-Form-Clean.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
+        />
+        <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
     </head>
     <body>
-        <h1>List of problems</h1>
-        <ul id="problems"></ul>
-        <form id="addproblem">
-            <input placeholder="Name" type="text" name="name" />
-            <input
-                placeholder="Problem Statement"
-                type="text"
-                name="problemStatement"
-            />
-            <div>
-                <ul id="constraintsList"></ul>
-                <input
-                    placeholder="Constraints"
-                    id="constraints"
-                    type="text"
-                    name="constraints"
-                />
-                <button
-                    onclick="addValue(event)"
-                    name="constraints"
-                    type="button"
-                >
-                    +
-                </button>
-            </div>
-            <div>
-                <ul id="sampleInputList"></ul>
-                <input
-                    placeholder="Sample Input"
-                    id="sampleInput"
-                    type="text"
-                    name="sampleInput"
-                />
-                <button
-                    onclick="addValue(event)"
-                    name="sampleInput"
-                    type="button"
-                >
-                    +
-                </button>
-            </div>
-            <div>
-                <ul id="sampleOutputList"></ul>
-                <input
-                    placeholder="Sample Output"
-                    id="sampleOutput"
-                    type="text"
-                    name="sampleOutput"
-                />
-                <button
-                    onclick="addValue(event)"
-                    name="sampleOutput"
-                    type="button"
-                >
-                    +
-                </button>
-            </div>
-            <input type="text" name="explanation" placeholder="Explanation" />
-            <!--    <input type='file' name='image'/>-->
-            <input
-                type="number"
-                name="timeLimit"
-                placeholder="Time Limit [in s]"
-            />
-            <input
-                type="number"
-                name="memoryLimit"
-                placeholder="Memory Limit [in MB]"
-            />
-            <div>
-                <ul id="problemTypeList"></ul>
-                <input
-                    placeholder="Problem Type"
-                    id="problemType"
-                    type="text"
-                    name="problemType"
-                />
-                <button
-                    onclick="addValue(event)"
-                    name="problemType"
-                    type="button"
-                >
-                    +
-                </button>
-            </div>
-            <button type="submit">Add</button>
-        </form>
+        <main class="page contact-us-page">
+            <section class="clean-block clean-form dark">
+                <div class="container">
+                    <div class="block-heading">
+                        <h2 class="text-info">List of Problems</h2>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <ul class="text-center" id="problems"></ul>
+        <section class="contact-clean">
+            <form id="addproblem">
+                <h2 class="text-info">Add a Problem</h2>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Name"
+                        type="text"
+                        name="name"
+                    />
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Problem Statement"
+                        type="text"
+                        name="problemStatement"
+                    />
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Constraints"
+                        id="constraints"
+                        type="text"
+                        name="constraints"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        onclick="addValue(event)"
+                        name="constraints"
+                        type="button"
+                    >
+                        +
+                    </button>
+                    <ul id="constraintsList"></ul>
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Sample Input"
+                        id="sampleInput"
+                        type="text"
+                        name="sampleInput"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        onclick="addValue(event)"
+                        name="sampleInput"
+                        type="button"
+                    >
+                        +
+                    </button>
+                    <ul id="sampleInputList"></ul>
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Sample Output"
+                        id="sampleOutput"
+                        type="text"
+                        name="sampleOutput"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        onclick="addValue(event)"
+                        name="sampleOutput"
+                        type="button"
+                    >
+                        +
+                    </button>
+                    <ul id="sampleOutputList"></ul>
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        type="text"
+                        name="explanation"
+                        placeholder="Explanation"
+                    />
+                </div>
+                <!--    <input type='file' name='image'/>-->
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        type="number"
+                        name="timeLimit"
+                        placeholder="Time Limit [in s]"
+                    />
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        type="number"
+                        name="memoryLimit"
+                        placeholder="Memory Limit [in MB]"
+                    />
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Problem Type"
+                        id="problemType"
+                        type="text"
+                        name="problemType"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        onclick="addValue(event)"
+                        name="problemType"
+                        type="button"
+                    >
+                        +
+                    </button>
+                    <ul id="problemTypeList"></ul>
+                </div>
+                <button class="btn btn-primary" type="submit">Add</button>
+            </form>
+        </section>
         <script src="js/build/codeVendor.js"></script>
         <script src="js/build/codeMain.js"></script>
         <script>

@@ -3,8 +3,37 @@
     <head>
         <meta charset="UTF-8" />
         <title>Problem Statement</title>
+        <link
+            rel="stylesheet"
+            href="../assets/bootstrap/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i"
+        />
+        <link rel="stylesheet" href="../assets/fonts/ionicons.min.css" />
+        <link rel="stylesheet" href="../css/Contact-Form-Clean.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
+        />
+        <link rel="stylesheet" href="../css/Login-Form-Clean.css" />
+        <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
     </head>
     <body>
+        <!-- <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+            <div class="container"><a class="navbar-brand logo" href="#">Flowgramming</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="./frontend/landing.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="./frontend/contest_page.html">Problem</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./frontend/contest_list.html">Contest Page</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./frontend/login.html">LOGIN</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./frontend/profile.html">PROFILE</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav> -->
         <div id="problem"></div>
     </body>
     <script src="js/build/codeVendor.js"></script>
@@ -31,35 +60,39 @@
                 .then((response) => response.json())
                 .then((x) => {
                     let html =
-                        '<h1>' +
+                        '<main class="page"><section class="clean-block features"><div class="container"><div class="block-heading"><h2 class="text-info">' +
                         x.name +
-                        '</h1>' +
-                        '<p>' +
+                        '</h2></div></div><div class="container"><div class = "row"><div class="col-md-8"><h4 style="color: var(--bs-info);">Problem Description</h4><p>' +
                         x.problemStatement +
-                        '</p><p>Constraints:</p>'
+                        '</p><h4 style="color: var(--bs-info);">Constraints</h4>'
                     x.constraints.map((y) => {
                         html += '<p>' + escapeHtml(y) + '</p>'
                     })
-                    html += '<p>Sample Input</p>'
+
+                    html +=
+                        '</div><div class = "col-md-4"><h6 style="color: var(--bs-info);">Time Limit</h6><p>' +
+                        x.timeLimit +
+                        '</p><h6 style="color: var(--bs-info);">Memory Limit</h6><p>' +
+                        x.memoryLimit +
+                        '</p><h6 style="color: var(--bs-info);">Problem Type</h6>'
+                    x.problemType.map((y) => {
+                        html += '<p>' + escapeHtml(y) + '</p>'
+                    })
+
+                    html +=
+                        '</div></div></div> <div class="container"><div class="row"><div class="col-md-6"><h4 style="color: var(--bs-info);">Sample Input</h4>'
                     x.sampleInput.map((y) => {
                         html += '<p>' + escapeHtml(y) + '</p>'
                     })
-                    html += '<p>Sample Output</p>'
+                    html +=
+                        '</div><div class="col-md-6"><h4 style="color: var(--bs-info);">Sample Output</h4>'
                     x.sampleOutput.map((y) => {
                         html += '<p>' + escapeHtml(y) + '</p>'
                     })
                     html +=
-                        '<p>Explanation</p><p>' +
+                        '</div></div></div><div class="container"><div class="row"><div class="col-md-12"><h4 style="color: var(--bs-info);">Explanation</h4><p>' +
                         x.explanation +
-                        '</p>' +
-                        '<p>Time Limit</p><p>' +
-                        x.timeLimit +
-                        '</p><p>Memory Limit</p><p>' +
-                        x.memoryLimit +
-                        '</p><p>Problem Type</p>'
-                    x.problemType.map((y) => {
-                        html += '<p>' + escapeHtml(y) + '</p>'
-                    })
+                        '</p></div></div></div></section></main>'
                     $('#problem').append(html)
                 })
         }
