@@ -19,6 +19,7 @@ mongoose.connect(
 )
 
 const problemSchema = new mongoose.Schema({
+    id: String,
     name: String,
     problemStatement: String,
     constraints: [String],
