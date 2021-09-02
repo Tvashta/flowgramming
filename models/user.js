@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-
+const bcrypt = require('bcryptjs')
 var userSchema = mongoose.Schema({
     firstName: String,
     lastName: String,
@@ -10,6 +10,7 @@ var userSchema = mongoose.Schema({
     totalPoints: Number,
     password: String,
     rules: [String],
+    joinedContests: [String],
 })
 
 module.exports = mongoose.model('User', userSchema)

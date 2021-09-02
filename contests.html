@@ -14,7 +14,7 @@
             let id = $(event.target).attr('data-id')
             openNewTab('viewContest.html', id)
         })
-
+        localStorage.setItem('userId', '612de9c91ba2ca29ad68441c')
         window.onload = () => {
             fetch('http://localhost:5000/contest/all')
                 .then((response) => response.json())
