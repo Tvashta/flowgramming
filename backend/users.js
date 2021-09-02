@@ -27,17 +27,21 @@ router.get('/new', (req, res) => {
 })
 
 // Login User
-router.get('/login', (req, res) => {
+router.post('/login', (req, res) => {
     var email = req.body.email
     User.findOne({ email: email }).exec((err, user) => {
         if (err) res.send(err)
-        user.comparePassword(
+        User.comparePassword(
             req.body.password,
             user.password,
             (err, isMatch) => {
                 if (err) res.send(err)
-                req.user = user
-                res.status(200).json(user)
+                if(isMatch) {
+                    res.status(200).json(user);
+                } else {
+                    res.status(200).json({'error': 'Invalid Credentials'})
+                }
+                
             }
         )
     })

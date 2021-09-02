@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
         />
-        <title>Flowgramming</title>
+        <title>Contest Page</title>
         <link
             rel="stylesheet"
             href="../assets/bootstrap/css/bootstrap.min.css"
@@ -21,19 +21,60 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
         />
+        <link rel="stylesheet" href="../css/Login-Form-Clean.css" />
         <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
+        <link rel="stylesheet" href="../css/app.css" />
     </head>
+
     <body>
-        <main class="page contact-us-page">
-            <section class="clean-block clean-form dark">
+        <nav
+            class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar"
+        >
+            <div class="container">
+                <a class="navbar-brand logo" href="#">Flowgramming</a
+                ><button
+                    data-bs-toggle="collapse"
+                    class="navbar-toggler"
+                    data-bs-target="#navcol-1"
+                >
+                    <span class="visually-hidden">Toggle navigation</span
+                    ><span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="landing.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="problems.html"
+                                >Problems</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contests.html"
+                                >Contest Page</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">LOGIN</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html">PROFILE</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main class="page contact-us-page" id='problemsScreen'>
+            <section class="clean-block clean-form dark" id="problemHeaderDiv">
                 <div class="container">
-                    <div class="block-heading">
-                        <h2 class="text-info">List of Problems</h2>
+                    <div class="block-heading" id="problemHeader">
+                        <h2 class="text-info">Problems Repository</h2>
                     </div>
                 </div>
             </section>
         </main>
-        <ul class="text-center" id="problems"></ul>
+        
         <section class="contact-clean">
             <form id="addproblem">
                 <h2 class="text-info">Add a Problem</h2>
@@ -153,6 +194,42 @@
                 <button class="btn btn-primary" type="submit">Add</button>
             </form>
         </section>
+        <section id="problemHeaderDiv">
+            <div class="container">
+                <br>
+                <div class="block-heading text-md-center" id="problemHeader">
+                    <h2 class="text-info"> All Problems</h2>
+                </div>
+                <br>
+            </div>
+        </section>
+        <div id="problemsDiv">
+
+        </div>
+        
+
+        <ul class="text-center" id="problems"></ul>
+        
+        <footer class="page-footer dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h5>Get started</h5>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>About us</h5>
+                        <ul>
+                            <li><a href="#">Contact us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          </footer>
+          
         <script src="js/build/codeVendor.js"></script>
         <script src="js/build/codeMain.js"></script>
         <script>
@@ -172,26 +249,43 @@
                 event.preventDefault()
                 addProblem()
             })
-            $('#problems').click(function (event) {
+
+            $(document).on('click', '.openProblem', function (event) {
                 let id = $(event.target).attr('data-id')
-                openNewTab('viewProblem.html', id)
+                window.open('viewProblem.html', id);
             })
 
             window.onload = () => {
                 fetch('http://localhost:5000/problems')
                     .then((response) => response.json())
                     .then((data) => {
-                        data.map((x) => {
-                            $('#problems').append(
-                                '<li data-id=' +
-                                    x._id +
-                                    '>' +
-                                    x.name +
-                                    '</li><button onclick="deleteProblem(\'' +
-                                    x._id +
-                                    '\')" type="submit">Delete</button>'
-                            )
-                        })
+                        let html = '<div class="container block-heading">' +
+                                        '<div class="table-responsive">' +
+                                          '  <table class="table">' +
+                                               ' <thead>' +
+                                                   ' <tr>' +
+                                                        '<th>S. No.</th>' +
+                                                        '<th>Problem Name</th>' +
+                                                        '<th>Creation Date</th>' +
+                                                       ' <th>Visibility</th>' +
+                                                   ' </tr>' +
+                                                '</thead><tbody>';
+                        data.map((problem, index) => {
+                            html += '<tr>' +
+                            '<td>'+ (index+1)+'</td>' +
+                            '<td><span class="openProblem" data-id="'+problem._id+'">'+problem.name+'</span></td>';
+                            
+                            if(problem.author)
+                                html += '<td>'+problem.author.firstName+' '+problem.author.lastName+'</td>'
+                            else 
+                                html += '<td>Test Author</td>';
+                            
+                            html += '<td><span class="visibilityTag'+problem.visibility+'">'+ problem.visibility +'</span></td>';
+                            html+='</tr>';
+                            
+                        });
+                        html += '</table></div></div>';
+                        $('#problemsDiv').append(html)
                     })
             }
 

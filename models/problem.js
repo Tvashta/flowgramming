@@ -13,12 +13,10 @@ var problemSchema = mongoose.Schema({
     },
     timeLimit: Number,
     memoryLimit: Number,
-    authors: [
-        {
+    author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         },
-    ],
     problemType: [String],
     visibility: String,
 })

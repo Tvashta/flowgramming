@@ -14,40 +14,27 @@ router.get('/create', (req, res) => {
         })
 })
 
-router.get('/view/:id', (req, res) => {
+router.get('/id/:id', (req, res) => {
     Contest.findOne({ contestID: req.params.id })
         .populate('organizer')
         .populate('problems.problemObject')
         .populate('rankings.user')
         .exec((err, contest) => {
             if (err) res.send(err)
-            res.render('viewContest.ejs', { contest: contest })
-        })
-})
-
-router.get('/getJSON/:id', (req, res) => {
-    Contest.findOne({ contestID: req.params.id })
-        .populate('organizer')
-        .populate('problems.problemObject')
-        .populate('rankings.user')
-        .exec((err, contest) => {
-            if (err) res.send(err)
-            res.json(contest)
+            res.status(200).json(contest);
         })
 })
 
 // GET - view all contests.
 router.get('/all', (req, res) => {
-    setTimeout(() => {
-        Contest.find({})
+    Contest.find({})
             .populate('organizer')
             .populate('problems.problemObject')
             .populate('rankings.user')
             .exec((err, allContests) => {
                 if (err) res.send(err)
-                res.status(200).json(allContests)
+                res.status(200).json(allContests);
             })
-    }, 1400)
 })
 
 router.post('/test', (req, res) => {
@@ -58,8 +45,8 @@ router.post('/test', (req, res) => {
 router.get('/ongoing', (req, res) => {
     var today = new Date()
     Contest.find({
-        contestStartTime: { $gte: today },
-        contestEndTime: { $lte: today },
+        contestStartTime: { $lte: today },
+        contestEndTime: { $gte: today },
     })
         .populate('organizer')
         .populate('problems.problemObject')

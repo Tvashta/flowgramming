@@ -59,9 +59,12 @@
                         '</h2></div></div><div class="container"><div class = "row"><div class="col-md-8"><h4 style="color: var(--bs-info);">Problem Description</h4><p>' +
                         x.problemStatement +
                         '</p><h4 style="color: var(--bs-info);">Constraints</h4>'
+
+                    if(x.constraints) {
                     x.constraints.map((y) => {
                         html += '<p>' + escapeHtml(y) + '</p>'
                     })
+                    }
 
                     html +=
                         '</div><div class = "col-md-4"><h6 style="color: var(--bs-info);">Time Limit</h6><p>' +
