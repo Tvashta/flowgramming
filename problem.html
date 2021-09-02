@@ -22,6 +22,9 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
         />
         <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
         <main class="page contact-us-page">
@@ -33,126 +36,149 @@
                 </div>
             </section>
         </main>
-        <ul class="text-center" id="problems"></ul>
-        <section class="contact-clean">
-            <form id="addproblem">
-                <h2 class="text-info">Add a Problem</h2>
-                <div class="mb-3">
-                    <input
-                        class="form-control"
-                        placeholder="Name"
-                        type="text"
-                        name="name"
-                    />
-                </div>
-                <div class="mb-3">
-                    <input
-                        class="form-control"
-                        placeholder="Problem Statement"
-                        type="text"
-                        name="problemStatement"
-                    />
-                </div>
-                <div class="mb-3">
-                    <input
-                        class="form-control"
-                        placeholder="Constraints"
-                        id="constraints"
-                        type="text"
-                        name="constraints"
-                    />
-                    <button
-                        class="btn btn-primary"
-                        onclick="addValue(event)"
-                        name="constraints"
-                        type="button"
-                    >
-                        +
-                    </button>
-                    <ul id="constraintsList"></ul>
-                </div>
-                <div class="mb-3">
-                    <input
-                        class="form-control"
-                        placeholder="Sample Input"
-                        id="sampleInput"
-                        type="text"
-                        name="sampleInput"
-                    />
-                    <button
-                        class="btn btn-primary"
-                        onclick="addValue(event)"
-                        name="sampleInput"
-                        type="button"
-                    >
-                        +
-                    </button>
-                    <ul id="sampleInputList"></ul>
-                </div>
-                <div class="mb-3">
-                    <input
-                        class="form-control"
-                        placeholder="Sample Output"
-                        id="sampleOutput"
-                        type="text"
-                        name="sampleOutput"
-                    />
-                    <button
-                        class="btn btn-primary"
-                        onclick="addValue(event)"
-                        name="sampleOutput"
-                        type="button"
-                    >
-                        +
-                    </button>
-                    <ul id="sampleOutputList"></ul>
-                </div>
-                <div class="mb-3">
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="explanation"
-                        placeholder="Explanation"
-                    />
-                </div>
-                <!--    <input type='file' name='image'/>-->
-                <div class="mb-3">
-                    <input
-                        class="form-control"
-                        type="number"
-                        name="timeLimit"
-                        placeholder="Time Limit [in s]"
-                    />
-                </div>
-                <div class="mb-3">
-                    <input
-                        class="form-control"
-                        type="number"
-                        name="memoryLimit"
-                        placeholder="Memory Limit [in MB]"
-                    />
-                </div>
-                <div class="mb-3">
-                    <input
-                        class="form-control"
-                        placeholder="Problem Type"
-                        id="problemType"
-                        type="text"
-                        name="problemType"
-                    />
-                    <button
-                        class="btn btn-primary"
-                        onclick="addValue(event)"
-                        name="problemType"
-                        type="button"
-                    >
-                        +
-                    </button>
-                    <ul id="problemTypeList"></ul>
-                </div>
-                <button class="btn btn-primary" type="submit">Add</button>
-            </form>
-        </section>
+                <h2>Click here to add a new problem</h2>
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Problem</button>
+              
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal-dialog">
+                  
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                          <ul class="text-center" id="problems"></ul>
+                          <section class="contact-clean">
+                              <form id="addproblem">
+                                  <h2 class="text-info">Add a Problem</h2>
+                                  <div class="mb-3">
+                                      <input
+                                          class="form-control"
+                                          placeholder="Name"
+                                          type="text"
+                                          name="name"
+                                      />
+                                  </div>
+                                  <div class="mb-3">
+                                      <input
+                                          class="form-control"
+                                          placeholder="Problem Statement"
+                                          type="text"
+                                          name="problemStatement"
+                                      />
+                                  </div>
+                                  <div class="mb-3">
+                                      <input
+                                          class="form-control"
+                                          placeholder="Constraints"
+                                          id="constraints"
+                                          type="text"
+                                          name="constraints"
+                                      />
+                                      <button
+                                          class="btn btn-primary"
+                                          onclick="addValue(event)"
+                                          name="constraints"
+                                          type="button"
+                                      >
+                                          +
+                                      </button>
+                                      <ul id="constraintsList"></ul>
+                                  </div>
+                                  <div class="mb-3">
+                                      <input
+                                          class="form-control"
+                                          placeholder="Sample Input"
+                                          id="sampleInput"
+                                          type="text"
+                                          name="sampleInput"
+                                      />
+                                      <button
+                                          class="btn btn-primary"
+                                          onclick="addValue(event)"
+                                          name="sampleInput"
+                                          type="button"
+                                      >
+                                          +
+                                      </button>
+                                      <ul id="sampleInputList"></ul>
+                                  </div>
+                                  <div class="mb-3">
+                                      <input
+                                          class="form-control"
+                                          placeholder="Sample Output"
+                                          id="sampleOutput"
+                                          type="text"
+                                          name="sampleOutput"
+                                      />
+                                      <button
+                                          class="btn btn-primary"
+                                          onclick="addValue(event)"
+                                          name="sampleOutput"
+                                          type="button"
+                                      >
+                                          +
+                                      </button>
+                                      <ul id="sampleOutputList"></ul>
+                                  </div>
+                                  <div class="mb-3">
+                                      <input
+                                          class="form-control"
+                                          type="text"
+                                          name="explanation"
+                                          placeholder="Explanation"
+                                      />
+                                  </div>
+                                  <!--    <input type='file' name='image'/>-->
+                                  <div class="mb-3">
+                                      <input
+                                          class="form-control"
+                                          type="number"
+                                          name="timeLimit"
+                                          placeholder="Time Limit [in s]"
+                                      />
+                                  </div>
+                                  <div class="mb-3">
+                                      <input
+                                          class="form-control"
+                                          type="number"
+                                          name="memoryLimit"
+                                          placeholder="Memory Limit [in MB]"
+                                      />
+                                  </div>
+                                  <div class="mb-3">
+                                      <input
+                                          class="form-control"
+                                          placeholder="Problem Type"
+                                          id="problemType"
+                                          type="text"
+                                          name="problemType"
+                                      />
+                                      <button
+                                          class="btn btn-primary"
+                                          onclick="addValue(event)"
+                                          name="problemType"
+                                          type="button"
+                                      >
+                                          +
+                                      </button>
+                                      <ul id="problemTypeList"></ul>
+                                  </div>
+                                  <button class="btn btn-primary" type="submit">Add</button>
+                              </form>
+                          </section>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                
+              </div>              
         <script src="js/build/codeVendor.js"></script>
         <script src="js/build/codeMain.js"></script>
         <script>
@@ -189,7 +215,7 @@
                                     x.name +
                                     '</li><button onclick="deleteProblem(\'' +
                                     x._id +
-                                    '\')" type="submit">Delete</button>'
+                                    '\')" class = "btn btn-primary" type="submit">Delete</button>'
                             )
                         })
                     })
@@ -239,3 +265,4 @@
         </script>
     </body>
 </html>
+ <!-- <input type='file' name='image'/> -->
