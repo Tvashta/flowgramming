@@ -402,7 +402,7 @@ function handleAssignmentHelper(variableName, variableValue) {
             } else {
                 if (isChar(variableValue)) {
                     globalEval(variableName + ' = ' + "'" + variableValue + "'")
-                } else{
+                } else {
                     throw new Error('Datatype mismatch')
                 }
             }
@@ -949,8 +949,8 @@ function handleRuntimeErrors(expression) {
 }
 
 function stringManipulations(variableName, userInput) {
-    let regExp = /\(([^)]+)\)/;
-    let parametersAsString = regExp.exec(userInput);
+    let regExp = /\(([^)]+)\)/
+    let parametersAsString = regExp.exec(userInput)
     if (userInput.includes('strcat')) {
         let parameters = parametersAsString[1].split(',')
         let firstVariable = parameters[0]
@@ -996,7 +996,7 @@ function stringManipulations(variableName, userInput) {
     } else if (userInput.includes('toUpperCase')) {
         let variable = parametersAsString[1]
         if (isArrayNotation(variable) || variables[variable].type === 'char') {
-            return globalEval(variableName + '='+ variable+'.toUpperCase()')
+            return globalEval(variableName + '=' + variable + '.toUpperCase()')
         }
         return globalEval(
             variableName +

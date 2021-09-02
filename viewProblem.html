@@ -21,22 +21,11 @@
         <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
     </head>
     <body>
-        <!-- <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-            <div class="container"><a class="navbar-brand logo" href="#">Flowgramming</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="./frontend/landing.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="./frontend/contest_page.html">Problem</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./frontend/contest_list.html">Contest Page</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./frontend/login.html">LOGIN</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./frontend/profile.html">PROFILE</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
         <div id="problem"></div>
     </body>
     <script src="js/build/codeVendor.js"></script>
+    <script src="js/build/codeMain.js"></script>
+
     <script>
         function escapeHtml(string) {
             let entityMap = {
@@ -55,8 +44,13 @@
         }
 
         window.onload = () => {
-            let id = window.name
-            fetch('http://localhost:4000/problems/' + id)
+            let contestId='', problemId=''
+            if(window.name.split("&").length>1){
+                contestId=window.name.split("&")[1]
+                problemId=window.name.split("&")[0]
+            }
+            else problemId=window.name
+            fetch('http://localhost:5000/problems/' + problemId)
                 .then((response) => response.json())
                 .then((x) => {
                     let html =
@@ -94,6 +88,13 @@
                         x.explanation +
                         '</p></div></div></div></section></main>'
                     $('#problem').append(html)
+                    if(contestId!==''){
+                        $("#problem").append('<button id="submit">Submit answer</button>')
+                        $('#submit').click(() => {
+                            openNewTab('index.html', `${window.name}IDE`)
+                        })
+                    }
+
                 })
         }
     </script>

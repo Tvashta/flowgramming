@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>View Contests</title>
+  <link rel="stylesheet" type="text/css" href="css/viewContest.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<div class="container contest-details">
+  <div class="container p-4 information">
+    <div id='contest'></div>
+    <br>
+    <button class="btn btn-info float-md-right">Join Contest</button>
+    <br>
+    <br>
+    <h3>Rankings</h3>
+    <div class="container w-100 align-content-center" id="rankings-info-div">
+      Enter Contest to view rankings
+    </div>
+  </div>
+  <div class="container metadata">
+
+  </div>
+</div>
+<script src="js/build/codeVendor.js"></script>
+<script src="js/build/codeMain.js"></script>
+<script>
+  window.onload = ()=>{
+    fetch("http://localhost:5000/contest/getJSON/"+window.name)
+    .then(res => res.json())
+    .then(contest=>{
+      let html ='<h2>'+ contest.name+'</h2>' +
+          '    <p>'+contest.description+'</p>' +
+          '    <div class="container">'
+      if(contest.organizer)
+        html+='<strong>Organizer: </strong>'+contest.organizer.firstName+contest.organizer.lastName
+      html+= '      <br>' +
+          '      <strong>Contest Start Time: </strong>'+contest.contestStartTime+
+          '      <br>' +
+          '      <strong>Contest End Time: </strong>'+ contest.contestEndTime+'' +
+          '    </div>' +
+          '    <br>' +
+          '    <table class="table">' +
+          '      <thead class="thead-dark">' +
+          '      <tr>' +
+          '        <th scope="col">#</th>' +
+          '        <th scope="col">Problem Name</th>' +
+          '        <th scope="col">Points</th>' +
+          '        <th scope="col">Author</th>' +
+          '      </tr>' +
+          '      </thead>' +
+          '      <tbody>'
+
+      contest.problems.map((problem, index)=>{
+        html+='      <tr>' +
+            '        <th scope="row">'+(index+1)+'</th>' +
+            '        <td><a onclick=openNewTab(\'viewProblem.html\',"'+problem.problemObject._id+"&"+contest.contestID+'")>'+problem.problemObject.name+'</a></td>' +
+            '        <td>'+ problem.points +'</td>'
+        if(problem.problemObject.authors.length>0)
+          html+=
+            '        <td'+ problem.problemObject.authors +'</td>'
+        else
+          html+=
+            '        <td>Test Author</td>'
+      })
+      html+=
+          '      </tr>' +
+          '      </tbody>' +
+          '    </table>'
+
+      $('#contest').append(html)
+    })
+  }
+
+</script>
+<script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

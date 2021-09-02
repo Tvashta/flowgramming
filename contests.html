@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Contests</title>
+    </head>
+    <body>
+        <ul id="contests"></ul>
+    </body>
+    <script src="js/build/codeVendor.js"></script>
+    <script src="js/build/codeMain.js"></script>
+    <script>
+        $('#contests').click(function (event) {
+            let id = $(event.target).attr('data-id')
+            openNewTab('viewContest.html', id)
+        })
+
+        window.onload = () => {
+            fetch('http://localhost:5000/contest/all')
+                .then((response) => response.json())
+                .then((data) => {
+                    data.map((x) => {
+                        console.log(x)
+                        $('#contests').append(
+                            '<li data-id=' +
+                                x.contestID +
+                                '>' +
+                                x.name +
+                                '</li>'
+                        )
+                    })
+                })
+        }
+    </script>
+</html>
