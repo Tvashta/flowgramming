@@ -485,8 +485,10 @@
         let indexOfArr = 4
         window.onload = () => {
             let id = window.name.slice(0, -3)
-            if (id !== '') {
-                fetch('http://localhost:4000/problems/' + id)
+            let contestId = id.split('&').length > 1 ? id.split('&')[1] : '',
+                problemId = id.split('&')[0]
+            if (contestId !== '') {
+                fetch('http://localhost:5000/problems/' + problemId)
                     .then((response) => response.json())
                     .then((x) => {
                         $('#navbar').append(
@@ -495,7 +497,7 @@
                                 '</a> <button class="nav-item d-flex btn btn-info" id="submitAnswer">Submit</button>'
                         )
                         $('#problemId').on('click', () =>
-                            openNewTab('viewProblem.html', id)
+                            openNewTab('viewProblem.html', problemId)
                         )
                         $('#submitAnswer').on('click', () => {
                             showLoader(

@@ -7,11 +7,11 @@ var ejs = require('ejs')
 
 router.get('/create', (req, res) => {
     Problem.find({})
-            .populate('authors')
-            .exec((err, allProblems) => {
-                if (err) res.send(err);
-                res.render('createContest.ejs', {problems: allProblems })
-            });
+        .populate('authors')
+        .exec((err, allProblems) => {
+            if (err) res.send(err)
+            res.render('createContest.ejs', { problems: allProblems })
+        })
 })
 
 router.get('/view/:id', (req, res) => {
@@ -20,10 +20,21 @@ router.get('/view/:id', (req, res) => {
         .populate('problems.problemObject')
         .populate('rankings.user')
         .exec((err, contest) => {
-            if (err) res.send(err);
-            res.render('viewContest.ejs', { contest: contest });
-        });
-});
+            if (err) res.send(err)
+            res.render('viewContest.ejs', { contest: contest })
+        })
+})
+
+router.get('/getJSON/:id', (req, res) => {
+    Contest.findOne({ contestID: req.params.id })
+        .populate('organizer')
+        .populate('problems.problemObject')
+        .populate('rankings.user')
+        .exec((err, contest) => {
+            if (err) res.send(err)
+            res.json(contest)
+        })
+})
 
 // GET - view all contests.
 router.get('/all', (req, res) => {
@@ -40,8 +51,8 @@ router.get('/all', (req, res) => {
 })
 
 router.post('/test', (req, res) => {
-    console.log(req.body); 
-});
+    console.log(req.body)
+})
 
 // GET - view all ongoing contests.
 router.get('/ongoing', (req, res) => {
@@ -88,18 +99,17 @@ router.post('/new', (req, res) => {
                             Contest.findOne({ contestID: contestID })
                                 .exec()
                                 .then((contest) => {
-                                    console.log("2", contest);
+                                    console.log('2', contest)
                                     contest.organizer = organizer
                                     contest.save()
                                 })
                         })
                 }
-                console.log("------------------------------", contestID);
+                console.log('------------------------------', contestID)
                 if (newContest.problems) {
-                    var index = 0;
+                    var index = 0
                     newContest.problems.forEach((problem) => {
-                        
-                        Problem.findOne({name: problem})
+                        Problem.findOne({ name: problem })
                             .exec()
                             .then((problemObj) => {
                                 Contest.findOne({ contestID: contestID })
@@ -107,12 +117,12 @@ router.post('/new', (req, res) => {
                                     .then((contest) => {
                                         contest.problems.push({
                                             problemObject: problemObj,
-                                            points: newContest.points[index]
+                                            points: newContest.points[index],
                                         })
                                         contest.save()
                                     })
-                            });
-                        index+=1;
+                            })
+                        index += 1
                     })
                 }
                 Contest.findOne({ contestID: contestID }, (err, contest) => {
@@ -125,7 +135,6 @@ router.post('/new', (req, res) => {
                 })
             }
         })
-        
     }, 1200)
 })
 

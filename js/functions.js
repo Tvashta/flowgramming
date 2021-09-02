@@ -216,31 +216,45 @@ function addFunctionParamsToTable(paramName, paramType) {
     tableBody.append(getHTMLForParameterRow(paramName, paramType))
 }
 
+function shouldMarkArray(element) {
+    return element && (element.endsWith('[]') || element.endsWith('array'))
+        ? 'checked'
+        : ''
+}
+
+function shouldMark1DArray(element) {
+    return (element && !element.endsWith('[]')) || !element ? 'checked' : ''
+}
+
+function shouldMark2DArray(element) {
+    return element && element.endsWith('[]') ? 'checked' : ''
+}
+
 function getModalBodyForManagingParameter(variableName, variableType) {
     return `<p>Enter Variable Name and Type</p>
-             <div class="input-group">
-                <input id="variableName" type="text" class="form-control" placeholder="Name"
-                        value="${variableName || ''}">
-                <select class="custom-select" id="variableType">
-                    <option value="Default" ${shouldSelectDataType(
+             <div class='input-group'>
+                <input id='variableName' type='text' class='form-control' placeholder='Name'
+                        value='${variableName || ''}'>
+                <select class='custom-select' id='variableType'>
+                    <option value='Default' ${shouldSelectDataType(
                         { variableType },
                         'Default'
                     )} disabled>
                         Type
                     </option>
-                    <option value="Integer" ${shouldSelectDataType(
+                    <option value='Integer' ${shouldSelectDataType(
                         { variableType },
                         'Integer'
                     )}>
                         Integer
                     </option>
-                    <option value="Float" ${shouldSelectDataType(
+                    <option value='Float' ${shouldSelectDataType(
                         { variableType },
                         'Float'
                     )}>
                         Float
                     </option>
-                    <option value="Char" ${shouldSelectDataType(
+                    <option value='Char' ${shouldSelectDataType(
                         { variableType },
                         'Char'
                     )}>
@@ -249,13 +263,31 @@ function getModalBodyForManagingParameter(variableName, variableType) {
                 </select>
             </div>
             <hr>
-            <div class="form-check ml-1 mt-1">
-              <input class="form-check-input" type="checkbox" id="isArray" 
-                    ${shouldMarkArrayCheckbox({ variableType })}>
-              <label class="form-check-label" for="isArray">
+            <div class='form-check ml-1 mt-1'>
+              <input class='form-check-input' type='checkbox' id='isArray' 
+                    ${shouldMarkArray(
+                        variableType
+                    )} onchange="onArrayCheckboxChanged()" >
+              <label class='form-check-label' for='isArray'>
                 Is an array
               </label>
-            </div>`
+            </div>
+            <div id='arrayDimension'>
+                 <div class='form-check' >
+                      <div class='form-check form-check-inline'>
+                           <input class='form-check-input' type='radio' id='is1DArray' value='1D' name='dimension' ${shouldMark1DArray(
+                               variableType
+                           )}>
+                           <label class='form-check-label' for='1D'>1D</label>
+                      </div>
+                      <div class='form-check form-check-inline'>
+                           <input class='form-check-input' type='radio' name='dimension' value='2D' id='is2DArray' ${shouldMark2DArray(
+                               variableType
+                           )}>
+                           <label class='form-check-label' for='2D'>2D</label>
+                      </div>
+                 </div>
+            </div> `
 }
 
 function manageFunctionParams(currentObject, paramName, paramType) {
@@ -264,6 +296,7 @@ function manageFunctionParams(currentObject, paramName, paramType) {
         getModalBodyForManagingParameter(paramName, paramType)
     )
     $('#modal').modal('show')
+    $('#isArray').ready(onArrayCheckboxChanged)
     $('#okButton').one('click', () => {
         const variableName = $('#variableName').val()
         let variableType = $('#variableType option:selected').val()
@@ -276,7 +309,7 @@ function manageFunctionParams(currentObject, paramName, paramType) {
         } else {
             // We need to add the array suffix to the data type if the checkbox is checked
             variableType += $('#isArray').is(':checked') ? ' array' : ''
-
+            variableType += $('#is2DArray').is(':checked') ? ' []' : ''
             if (handleNamingConvention()) {
                 if (editMode) {
                     $(currentObject)

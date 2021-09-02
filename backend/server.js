@@ -1,12 +1,13 @@
-var express = require('express')
-var mongoose = require('mongoose')
-var app = express()
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/public'))
-
-var mongoConfig = require('../config/mongo')
-var mongoURI = mongoConfig.MONGO_URI + mongoConfig.MAIN_DB
+app.use(cors())
+const mongoConfig = require('../config/mongo')
+const mongoURI = mongoConfig.MONGO_URI + mongoConfig.MAIN_DB
 
 mongoose
     .connect(mongoURI, {
@@ -19,10 +20,10 @@ mongoose
     .catch((err) => {
         console.log(err)
     })
-var db = mongoose.connection
+const db = mongoose.connection
 
-var contestRouter = require('./contest')
-var problemRouter = require('./problem')
+const contestRouter = require('./contest')
+const problemRouter = require('./problem')
 app.use('/contest', contestRouter)
 app.use('/problems', problemRouter)
 

@@ -6,14 +6,18 @@
     </head>
     <body>
         <div id="problem"></div>
-        <button id="submit">Submit answer</button>
     </body>
     <script src="js/build/codeVendor.js"></script>
     <script src="js/build/codeMain.js"></script>
     <script>
         window.onload = () => {
-            let id = window.name
-            fetch('http://localhost:4000/problems/' + id)
+            let contestId='', problemId=''
+            if(window.name.split("&").length>1){
+                contestId=window.name.split("&")[1]
+                problemId=window.name.split("&")[0]
+            }
+            else problemId=window.name
+            fetch('http://localhost:5000/problems/' + problemId)
                 .then((response) => response.json())
                 .then((x) => {
                     let html =
@@ -47,10 +51,15 @@
                         html += '<p>' + escapeHtml(y) + '</p>'
                     })
                     $('#problem').append(html)
+                    if(contestId!==''){
+                        $("#problem").append('<button id="submit">Submit answer</button>')
+                        $('#submit').click(() => {
+                            openNewTab('index.html', `${window.name}IDE`)
+                        })
+                    }
+
                 })
         }
-        $('#submit').click(() => {
-            openNewTab('index.html', `${window.name}IDE`)
-        })
+
     </script>
 </html>

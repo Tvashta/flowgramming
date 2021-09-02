@@ -1,8 +1,7 @@
 const express = require('express')
-const mongoose = require('mongoose')
 const app = express.Router()
 
-let problemsModel = require('../models/problem');
+let problemsModel = require('../models/problem')
 
 app.route('/')
     .get((req, res) => {
