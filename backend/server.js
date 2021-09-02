@@ -24,9 +24,10 @@ const db = mongoose.connection
 
 const contestRouter = require('./contest')
 const problemRouter = require('./problem')
+const submissionRouter = require('./submissions')
 app.use('/contest', contestRouter)
 app.use('/problems', problemRouter)
-
+app.use('/submissions', submissionRouter)
 const port = 5000
 
 app.listen(port, () => console.log('Server running...'))

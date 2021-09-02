@@ -342,8 +342,8 @@ function functionDefinitions(lang) {
     switchContext()
 }
 
-async function submitCode(code) {
-    const response = await fetch('http://localhost:4000/submitCode', {
+async function submitCode(code, problemId) {
+    const response = await fetch('http://localhost:5000/submissions', {
         method: 'POST',
         mode: 'cors',
         referrerPolicy: 'no-referrer',
@@ -353,7 +353,7 @@ async function submitCode(code) {
         },
         body: JSON.stringify({
             userid: 'ABC',
-            problemid: '123',
+            problemId,
             code,
             points: 0,
             subtime: new Date().toISOString().slice(0, 19).replace('T', ' '),
@@ -362,7 +362,7 @@ async function submitCode(code) {
     console.log(response)
 }
 
-function convert(language) {
+function convert(language, problemId = '') {
     code = window[`${language}Headers`]()
     functionDefinitions(language)
     code += window[`${language}FunctionDefinition`]({
@@ -379,7 +379,7 @@ function convert(language) {
     convertLoop(start, language)
     code += window[`${language}FunctionClose`]('')
     if (!error) {
-        if (language === 'pseudo') submitCode(code)
+        if (language === 'pseudo') submitCode(code, problemId)
         openNewTab('code.html', 'CodeConverter')
         hideLoader()
     }
