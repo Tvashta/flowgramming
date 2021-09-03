@@ -21,7 +21,6 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
         />
-        <link rel="stylesheet" href="../css/Login-Form-Clean.css" />
         <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
     </head>
 
@@ -93,29 +92,13 @@
     <script src="js/build/codeMain.js"></script>
 
     <script>
-        function escapeHtml(string) {
-            let entityMap = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#39;',
-                '/': '&#x2F;',
-                '`': '&#x60;',
-                '=': '&#x3D;',
-            }
-            return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-                return entityMap[s]
-            })
-        }
-
         window.onload = () => {
-            let contestId='', problemId=''
-            if(window.name.split("&").length>1){
-                contestId=window.name.split("&")[1]
-                problemId=window.name.split("&")[0]
-            }
-            else problemId=window.name
+            let contestId = '',
+                problemId = ''
+            if (window.name.split('&').length > 1) {
+                contestId = window.name.split('&')[1]
+                problemId = window.name.split('&')[0]
+            } else problemId = window.name
             fetch('http://localhost:5000/problems/' + problemId)
                 .then((response) => response.json())
                 .then((x) => {
@@ -157,13 +140,14 @@
                         x.explanation +
                         '</p></div></div></div></section></main>'
                     $('#problem').append(html)
-                    if(contestId!==''){
-                        $("#problem").append('<button id="submit">Submit answer</button>')
+                    if (contestId !== '') {
+                        $('#problem').append(
+                            '<button id="submit">Submit answer</button>'
+                        )
                         $('#submit').click(() => {
                             openNewTab('index.html', `${window.name}IDE`)
                         })
                     }
-
                 })
         }
     </script>

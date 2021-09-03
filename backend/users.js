@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router()
 var Contest = require('../models/contest')
-var User = require('../models/user')
 var Problem = require('../models/problem')
 var User = require('../models/user')
 
@@ -18,11 +17,39 @@ router.get('/new', (req, res) => {
         totalPoints: newUser.totalPoints,
         password: newUser.password,
         rules: newUser.rules,
+        joinedContests: [],
     })
 
     User.createUser(userObject, (err, user) => {
         if (err) res.send(err)
         res.status(200).json(user)
+    })
+})
+
+router.get('/get/:id', (req, res) => {
+    User.findById(req.params.id).exec((err, resp) => {
+        if (err) res.send(err)
+        res.send(resp)
+    })
+})
+
+router.post('/join', (req, res) => {
+    let user = req.body
+    User.findByIdAndUpdate(user.id, {
+        $addToSet: { joinedContests: user.contestID },
+    }).exec((err, resp) => {
+        if (err) res.send(err)
+        else res.send(resp)
+    })
+})
+
+router.post('/exit', (req, res) => {
+    let user = req.body
+    User.findByIdAndUpdate(user.id, {
+        $pull: { joinedContests: user.contestID },
+    }).exec((err, resp) => {
+        if (err) res.send(err)
+        else res.send(resp)
     })
 })
 

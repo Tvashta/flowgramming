@@ -24,6 +24,12 @@
         <link rel="stylesheet" href="../css/Login-Form-Clean.css" />
         <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
         <link rel="stylesheet" href="../css/app.css" />
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -71,6 +77,7 @@
                     <div class="block-heading" id="problemHeader">
                         <h2 class="text-info">Problems Repository</h2>
                     </div>
+                    <ul class="text-center" id="problems"></ul>
                 </div>
             </section>
         </main>
@@ -318,18 +325,10 @@
                 if (formData['problemType'] !== '')
                     problemType.push(formData['problemType'])
                 formData['problemType'] = problemType
-                await fetch('http://localhost:5000/problems', {
-                    method: 'POST',
-                    mode: 'cors',
-                    referrerPolicy: 'no-referrer',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                })
+                await postReq('http://localhost:5000/problems', formData)
                 location.reload()
             }
         </script>
     </body>
 </html>
+<!-- <input type='file' name='image'/> -->

@@ -11,6 +11,7 @@ var userSchema = mongoose.Schema({
     totalPoints: Number,
     password: String,
     rules: [String],
+    joinedContests: [String],
 })
 
 module.exports = mongoose.model('User', userSchema)

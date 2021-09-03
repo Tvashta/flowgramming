@@ -75,7 +75,7 @@ let codeVendor = [
     'js/vendor/bootstrap.js',
     'js/vendor/prism.js',
 ]
-let codeMain = ['js/tab.js', 'js/save.js']
+let codeMain = ['js/tab.js', 'js/save.js', 'js/apiHelper.js']
 gulp.task('concat', function () {
     gulp.src(indexVendor)
         .pipe(concat('indexVendor.js'))
