@@ -142,7 +142,7 @@
                     $('#problem').append(html)
                     if (contestId !== '') {
                         $('#problem').append(
-                            '<button id="submit">Submit answer</button>'
+                            '<div class="text-md-center"><button class="btn btn-success" id="submit">Submit answer</button></div><br><br>'
                         )
                         $('#submit').click(() => {
                             openNewTab('index.html', `${window.name}IDE`)

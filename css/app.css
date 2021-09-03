@@ -57,3 +57,7 @@
     border-radius: 5px;
     color: white;
 }
+
+.joinedContest:hover {
+    cursor: pointer;
+}

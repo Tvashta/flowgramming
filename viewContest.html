@@ -69,7 +69,9 @@
   <div class="container p-4 information">
     <div id='contest'></div>
     <br>
-    <button class="btn btn-info float-md-right">Join Contest</button>
+    <div id="join">
+
+    </div>
     <br>
     <br>
     <h3>Rankings</h3>
@@ -116,6 +118,7 @@
                 joined = true
         });
 
+
         console.log(joined)
     console.log(window.name)
     await fetch("http://localhost:5000/contest/id/"+window.name)
@@ -145,7 +148,9 @@
           '      </tr>' +
           '      </thead>' +
           '      <tbody>'
+
                         contest.problems.map((problem, index) => {
+                            console.log(problem)
                             html +=
                                 '      <tr>' +
                                 '        <th scope="row">' +
@@ -153,7 +158,7 @@
                                 '</th>'
                             if (joined)
                                 html +=
-                                    "        <td><a onclick=openNewTab('viewProblem.html',\"" +
+                                    "        <td><a class='joinedContest' onclick=openNewTab('viewProblem.html',\"" +
                                     problem.problemObject._id +
                                     '&' +
                                     contest.contestID +
@@ -197,6 +202,7 @@
       
 
             async function joinContest() {
+                console.log("hereeee")
                 await postReq('http://localhost:5000/users/join', {
                     id: localStorage.getItem('userId'),
                     contestID: window.name,
