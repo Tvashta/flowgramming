@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+        />
+        <title>Login</title>
+        <link
+            rel="stylesheet"
+            href="../assets/bootstrap/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i"
+        />
+        <link rel="stylesheet" href="../assets/fonts/ionicons.min.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
+        />
+        <link rel="stylesheet" href="../css/Login-Form-Clean.css" />
+        <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
+    </head>
+
+    <body>
+        <nav
+            class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar"
+        >
+            <div class="container">
+                <a class="navbar-brand logo" href="#">Flowgramming</a
+                ><button
+                    data-bs-toggle="collapse"
+                    class="navbar-toggler"
+                    data-bs-target="#navcol-1"
+                >
+                    <span class="visually-hidden">Toggle navigation</span
+                    ><span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="landing.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="problems.html"
+                                >Problems</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contests.html"
+                                >Contest Page</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="login.html"
+                                >LOGIN</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html">PROFILE</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main class="page">
+            <section class="clean-block about-us">
+                <div class="container">
+                    <div class="block-heading">
+                        <h2 class="text-info">Login</h2>
+                        <p>
+                            Use your microsoft account credentials to log in to
+                            our website and access contests.
+                        </p>
+                        <section class="login-clean">
+                            <form method="post" id="form">
+                                <h2 class="visually-hidden">Login Form</h2>
+                                <div class="illustration">
+                                    <i
+                                        class="icon ion-ios-lightbulb"
+                                        style="color: var(--bs-info)"
+                                    ></i>
+                                </div>
+                                <div class="mb-3">
+                                    <input
+                                        class="form-control"
+                                        type="email"
+                                        name="email"
+                                        placeholder="Email"
+                                        id = "email-input"
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <input
+                                        class="form-control"
+                                        type="password"
+                                        name="password"
+                                        placeholder="Password"
+                                        id='password-input'
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <button
+                                        class="btn btn-primary d-block w-100"
+                                        type="submit"
+                                    >
+                                        Log In
+                                    </button>
+                                </div>
+                                <a class="forgot" href="#"
+                                    >Forgot your email or password?</a
+                                >
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="page-footer dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h5>Get started</h5>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>About us</h5>
+                        <ul>
+                            <li><a href="#">Contact us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+        <script src="assets/js/vanilla-zoom.js"></script>
+        <script src="assets/js/theme.js"></script>
+        <script
+        src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+        <script src="js/build/codeVendor.js"></script>
+        <script src="js/build/codeMain.js"></script>
+        <script>
+            $('#form').on('submit', function (event) {
+                event.preventDefault()
+                loginUser();
+            });
+
+            async function loginUser() {
+                let email = $('#email-input').val();
+                let password = $('#password-input').val();
+                let formData = {
+                    email: email,
+                    password: password
+                }
+                fetch('http://localhost:5000/users/login', {
+                    method: 'POST',
+                    mode: 'cors',
+                    referrerPolicy: 'no-referrer',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                }).then((response)=> response.json())
+                .then((data)=> {
+                    if(data.error) {
+                        alert("Invalid Credentials");
+                        console.log("Invalid Credentials");
+                    } else {
+                        alert("User logged in!");
+                        localStorage.setItem('userId', data._id);
+                        console.log("User logged in", data._id, data.firstName);
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

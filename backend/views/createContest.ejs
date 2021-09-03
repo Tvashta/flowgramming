@@ -1,0 +1,68 @@
+<%- include ("./partials/header") %>
+<head>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/createContest.css">
+</head>
+<div class="container contest-details">
+    <br>
+    <form id="form">
+    <h2>New Contest</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Contest Name</td>
+                <td><input class="form-control" type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td>Contest ID</td>
+                <td><input class="form-control" type="text" name="contestID"></td>
+            </tr>
+            <tr>
+                <td>Contest Description</td>
+                <td><textarea class="form-control" aria-label="With textarea" name="description"></textarea></td>
+            </tr>
+            <tr>
+                <td>Contest Start Time</td>
+                <td><input class="form-control" type="date" name="contestStartDate">
+                    <input class="form-control" type="time" name="contestStartTime"></td>
+            </tr>
+            <tr>
+                <td>Contest End Time</td>
+                <td><input class="form-control" type="date" name="contestEndDate">
+                    <input class="form-control" type="time" name="contestEndTime"></td>
+            </tr>
+            <tr>
+                <td>Contest Password</td>
+                <td><input class="form-control" type="text" name="password"></td>
+            </tr>
+            <tr>
+                <td>Problems </td>
+                <td>
+                
+                    <div class="problems-group">
+                        <div class="problem">
+                            <label class='w-25 float-md-left'>Problem Name</label>
+                            <select name="problems" class='w-50 form-control' autocomplete="on">
+                                <% problems.forEach((problem)=> { %>
+                                    <option value="<%=problem.name%>">
+                                        <%= problem.name %> (<%= problem.visibility %>)
+                                    </option>
+                                <% }); %>
+                            </select>
+                            <label class='w-25 float-md-left'>Points</label>
+                            <input name="points" type="number" class="form-control w-50">
+                            <button class="btn-sm btn btn-danger form-inline delete-btn"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                    <br><br>
+                    <button type="button" class="btn btn-outline-dark btn-sm" id="createContestBtn">Add Problem</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+    <button class="btn btn-success btn-lg" id="submit-btn">Create Contest</button>
+</div>
+
+
+<%- include ("./partials/footer") %>
+<script src='/javascripts/createContest.js'></script>

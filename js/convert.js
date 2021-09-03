@@ -44,7 +44,11 @@ let varArray = {}
 
 function isArray(element) {
     try {
-        return element.split(' ').length !== 1
+        return (
+            element.split(' ').length !== 1 ||
+            element.includes('array') ||
+            element.includes('[]')
+        )
     } catch (e) {
         return false
     }
@@ -91,7 +95,7 @@ function functionCallHelper(element) {
         name,
         params: element.attr('element/functionParams'),
         returnVar,
-        returnType: contexts[name].returnType.split(' ')[0],
+        returnType: contexts[name].returnType,
         isArray: isArray(contexts[name].returnType),
         variable: varArray[returnVar],
     }
@@ -298,6 +302,7 @@ function convertLoop(currentElement, end = null) {
             }
         } catch (err) {
             error = true
+            console.log(err)
             swal(err.message || err.toString())
             break
         }
@@ -337,12 +342,32 @@ function functionDefinitions(lang) {
     switchContext()
 }
 
-function convert(language) {
+async function submitCode(code, problemId) {
+    const response = await fetch('http://localhost:5000/submissions', {
+        method: 'POST',
+        mode: 'cors',
+        referrerPolicy: 'no-referrer',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userid: 'ABC',
+            problemId,
+            code,
+            points: 0,
+            subtime: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        }),
+    })
+    console.log(response)
+}
+
+function convert(language, problemId = '') {
     code = window[`${language}Headers`]()
     functionDefinitions(language)
     code += window[`${language}FunctionDefinition`]({
         name: 'main',
-        type: 'int',
+        type: 'void',
         params: [],
     })
     indent = ''
@@ -352,8 +377,9 @@ function convert(language) {
     }
     start = findModel(contexts[currentContextName].start.id)
     convertLoop(start, language)
-    code += window[`${language}FunctionClose`](0)
+    code += window[`${language}FunctionClose`]('')
     if (!error) {
+        if (language === 'pseudo') submitCode(code, problemId)
         openNewTab('code.html', 'CodeConverter')
         hideLoader()
     }

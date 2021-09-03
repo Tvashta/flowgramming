@@ -103,6 +103,11 @@ function cppGetType(varType) {
     return type[varType[0]]
 }
 
+function cppgetReturnType(varType) {
+    if (varType.includes('array')) return varType.split('(')[0] + '[] '
+    return varType + ' '
+}
+
 function cppDeclaration(variable) {
     let type = cppGetType(variable.type)
     if (type !== '' && variable.name !== undefined)
@@ -253,8 +258,5 @@ function cppFunctionDefinition(fn) {
         x.isArray ? (params += '[], ') : (params += ', ')
     })
     params = params.slice(0, -2)
-    let retVar = fn.type
-    fn.isArray ? (retVar += '[] ') : (retVar += ' ')
-    retVar += fn.name + '(' + params + ') {\n'
-    return retVar
+    return cppgetReturnType(fn.type) + fn.name + '(' + params + ') {\n'
 }

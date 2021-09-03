@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+        />
+        <title>Contest List</title>
+        <link
+            rel="stylesheet"
+            href="../assets/bootstrap/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i"
+        />
+        <link rel="stylesheet" href="../assets/fonts/ionicons.min.css" />
+        <link rel="stylesheet" href="../css/Contact-Form-Clean.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
+        />
+        <link rel="stylesheet" href="../css/Login-Form-Clean.css" />
+        <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
+        <link rel="stylesheet" href="../css/app.css" />
+    </head>
+
+    <body>
+        <nav
+            class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar"
+        >
+            <div class="container">
+                <a class="navbar-brand logo" href="#">Flowgramming</a
+                ><button
+                    data-bs-toggle="collapse"
+                    class="navbar-toggler"
+                    data-bs-target="#navcol-1"
+                >
+                    <span class="visually-hidden">Toggle navigation</span
+                    ><span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="landing.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="problems.html"
+                                >Problems</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contests.html"
+                                >Contest Page</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">LOGIN</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html">PROFILE</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main class="page contact-us-page" id='problemsScreen'>
+            <section class="clean-block clean-form dark" id="problemHeaderDiv">
+                <div class="container">
+                    <div class="block-heading" id="problemHeader">
+                        <h2 class="text-info">Problems Repository</h2>
+                    </div>
+                    <ul class="text-center" id="problems"></ul>
+                </div>
+            </section>
+        </main>
+        
+        <section class="contact-clean">
+            <form id="addproblem">
+                <h2 class="text-info">Add a Problem</h2>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Name"
+                        type="text"
+                        name="name"
+                    />
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Problem Statement"
+                        type="text"
+                        name="problemStatement"
+                    />
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Constraints"
+                        id="constraints"
+                        type="text"
+                        name="constraints"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        onclick="addValue(event)"
+                        name="constraints"
+                        type="button"
+                    >
+                        +
+                    </button>
+                    <ul id="constraintsList"></ul>
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Sample Input"
+                        id="sampleInput"
+                        type="text"
+                        name="sampleInput"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        onclick="addValue(event)"
+                        name="sampleInput"
+                        type="button"
+                    >
+                        +
+                    </button>
+                    <ul id="sampleInputList"></ul>
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Sample Output"
+                        id="sampleOutput"
+                        type="text"
+                        name="sampleOutput"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        onclick="addValue(event)"
+                        name="sampleOutput"
+                        type="button"
+                    >
+                        +
+                    </button>
+                    <ul id="sampleOutputList"></ul>
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        type="text"
+                        name="explanation"
+                        placeholder="Explanation"
+                    />
+                </div>
+                <!--    <input type='file' name='image'/>-->
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        type="number"
+                        name="timeLimit"
+                        placeholder="Time Limit [in s]"
+                    />
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        type="number"
+                        name="memoryLimit"
+                        placeholder="Memory Limit [in MB]"
+                    />
+                </div>
+                <div class="mb-3">
+                    <input
+                        class="form-control"
+                        placeholder="Problem Type"
+                        id="problemType"
+                        type="text"
+                        name="problemType"
+                    />
+                    <button
+                        class="btn btn-primary"
+                        onclick="addValue(event)"
+                        name="problemType"
+                        type="button"
+                    >
+                        +
+                    </button>
+                    <ul id="problemTypeList"></ul>
+                </div>
+                <button class="btn btn-primary" type="submit">Add</button>
+            </form>
+        </section>
+        <section id="problemHeaderDiv">
+            <div class="container">
+                <br>
+                <div class="block-heading text-md-center" id="problemHeader">
+                    <h2 class="text-info"> All Problems</h2>
+                </div>
+                <br>
+            </div>
+        </section>
+        <div id="problemsDiv">
+
+        </div>
+        
+
+        <ul class="text-center" id="problems"></ul>
+        
+        <footer class="page-footer dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h5>Get started</h5>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>About us</h5>
+                        <ul>
+                            <li><a href="#">Contact us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          </footer>
+          
+        <script src="js/build/codeVendor.js"></script>
+        <script src="js/build/codeMain.js"></script>
+        <script>
+            var constraints = [],
+                sampleInput = [],
+                sampleOutput = [],
+                problemType = []
+
+            function addValue(e) {
+                let val = $(`#${e.target.name}`).val()
+                this[`${e.target.name}`].push(val)
+                $('#' + e.target.name).val('')
+                $(`#${e.target.name}List`).append('<li>' + val + '</li>')
+            }
+
+            $('#addproblem').on('submit', function (event) {
+                event.preventDefault()
+                addProblem()
+            })
+
+            $(document).on('click', '.openProblem', function (event) {
+                let id = $(event.target).attr('data-id')
+                window.open('viewProblem.html', id);
+            })
+
+            window.onload = () => {
+                fetch('http://localhost:5000/problems')
+                    .then((response) => response.json())
+                    .then((data) => {
+                        let html = '<div class="container block-heading">' +
+                                        '<div class="table-responsive">' +
+                                          '  <table class="table">' +
+                                               ' <thead>' +
+                                                   ' <tr>' +
+                                                        '<th>S. No.</th>' +
+                                                        '<th>Problem Name</th>' +
+                                                        '<th>Creation Date</th>' +
+                                                       ' <th>Visibility</th>' +
+                                                   ' </tr>' +
+                                                '</thead><tbody>';
+                        data.map((problem, index) => {
+                            html += '<tr>' +
+                            '<td>'+ (index+1)+'</td>' +
+                            '<td><span class="openProblem" data-id="'+problem._id+'">'+problem.name+'</span></td>';
+                            
+                            if(problem.author)
+                                html += '<td>'+problem.author.firstName+' '+problem.author.lastName+'</td>'
+                            else 
+                                html += '<td>Test Author</td>';
+                            
+                            html += '<td><span class="visibilityTag'+problem.visibility+'">'+ problem.visibility +'</span></td>';
+                            html+='</tr>';
+                            
+                        });
+                        html += '</table></div></div>';
+                        $('#problemsDiv').append(html)
+                    })
+            }
+
+            function deleteProblem(id) {
+                return fetch('http://localhost:5000/problems/' + id, {
+                    method: 'DELETE',
+                }).then((response) => {
+                    location.reload()
+                })
+            }
+
+            async function addProblem() {
+                let formArray = $('#addproblem').serializeArray()
+                let formData = {}
+                for (let i = 0; i < formArray.length; i++) {
+                    formData[formArray[i]['name']] = formArray[i]['value']
+                }
+                if (formData['constraints'] !== '')
+                    constraints.push(formData['constraints'])
+                formData['constraints'] = constraints
+
+                if (formData['sampleInput'] !== '')
+                    sampleInput.push(formData['sampleInput'])
+                formData['sampleInput'] = sampleInput
+
+                if (formData['sampleOutput'] !== '')
+                    sampleOutput.push(formData['sampleOutput'])
+                formData['sampleOutput'] = sampleOutput
+
+                if (formData['problemType'] !== '')
+                    problemType.push(formData['problemType'])
+                formData['problemType'] = problemType
+                await postReq('http://localhost:5000/problems', formData)
+                location.reload()
+            }
+        </script>
+    </body>
+</html>
+<!-- <input type='file' name='image'/> -->

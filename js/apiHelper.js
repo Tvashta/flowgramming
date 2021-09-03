@@ -18,25 +18,19 @@
  # *************************************************************************************
  */
 
-/**
- * Function to open given html file in a different tab
- * If it is open already, browser shifts focus automatically
- */
-
-function openNewTab(html, target) {
-    return window.open(html, target)
+function postReq(path, payload) {
+    return fetch(path, {
+        method: 'POST',
+        mode: 'cors',
+        referrerPolicy: 'no-referrer',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    })
 }
 
-// This is to prevent the file to be opened independently
-// which might cause inconsistency in the main function
-// However, localhost is excluded for dev purposes.
-preventIndependentOpen = () => {
-    if (window.location.hostname !== 'localhost' && !window.opener) {
-        window.location.href = '/'
-    }
-}
-
-// Escape HTML Characters in input
 function escapeHtml(string) {
     let entityMap = {
         '&': '&amp;',
