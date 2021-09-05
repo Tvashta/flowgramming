@@ -5,3 +5,4 @@ js/build
 css/build
 *.log
 *.bak
+config/
