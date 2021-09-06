@@ -497,7 +497,7 @@
                                 '</a> <button class="nav-item d-flex btn btn-info" id="submitAnswer">Submit</button>'
                         )
                         $('#problemId').on('click', () =>
-                            openNewTab('viewProblem.html', problemId)
+                            openNewTab('./problem/' + problemId, problemId)
                         )
                         $('#submitAnswer').on('click', () => {
                             showLoader(

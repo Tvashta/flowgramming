@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Problem </title>
+    <link
+            type='text/css'
+            rel="stylesheet"
+            href="../assets/bootstrap/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i"
+    />
+    <link  type='text/css' rel="stylesheet" href="../assets/fonts/ionicons.min.css" />
+    <link   type='text/css' rel="stylesheet" href="../css/Contact-Form-Clean.css" />
+    <link
+            type='text/css'
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
+    />
+    <link  type='text/css' rel="stylesheet" href="../css/vanilla-zoom.min.css" />
+</head>
+
+<body>
+<nav
+        class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar"
+>
+    <div class="container">
+        <a class="navbar-brand logo" href="#">Flowgramming</a
+        >
+        <button
+                data-bs-toggle="collapse"
+                class="navbar-toggler"
+                data-bs-target="#navcol-1"
+        >
+                    <span class="visually-hidden">Toggle navigation</span
+                    ><span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href='../landing.html'>Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href='../problems'
+                    >Problems</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href='../contests.html'
+                    >Contest Page</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href='../login.html'
+                    >LOGIN</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../profile.html">PROFILE</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<body>
+<br>
+
+<div id="problem">
+    <main class="page">
+        <section class="clean-block features">
+            <div class="container">
+                <div class="block-heading"><h2 class="text-info">
+                        <%= problem.name %></h2>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 style="color: var(--bs-info);  text-decoration: underline;">Problem Description</h4>
+                        <p><%= problem.problemStatement %></p>
+                        <h4 style="color: var(--bs-info); text-decoration: underline;">Constraints</h4>
+                        <% if(problem.constraints) { %>
+                            <% problem.constraints.map((y) => { %>
+                                <p>
+                                    <%=y%>
+                                </p>
+                            <% }) %>
+                        <% } %>
+                    </div>
+                    <div class="col-md-4"><h6 style="color: var(--bs-info); text-decoration: underline;">Time Limit</h6>
+                        <p><%= problem.timeLimit %></p>
+                        <h6 style="color: var(--bs-info);  text-decoration: underline;">Memory Limit</h6>
+                        <p><%= problem.memoryLimit %></p>
+                        <h6 style="color: var(--bs-info); text-decoration: underline;">Problem Type</h6>
+                        <% problem.problemType.map((y) => { %>
+                            <p><%= y %></p>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 style="color: var(--bs-info); text-decoration: underline;">Sample Input</h4>
+                        <% problem.sampleInput.map((y) => { %>
+                            <p> <%= y %></p>
+                        <% }) %>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 style="color: var(--bs-info); text-decoration: underline;">Sample Output</h4>
+                        <% problem.sampleOutput.map((y) => { %>
+                        <p><%= y %></p>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 style="color: var(--bs-info); text-decoration: underline;">Explanation</h4>
+                        <p><%= problem.explanation %></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+<footer class="page-footer dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <h5>Get started</h5>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <h5>About us</h5>
+                <ul>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src='../js/build/codeVendor.js'></script>
+<script src='../js/build/codeMain.js'></script>
+<script>
+    <%if(contestId){%>
+    $('#problem').append(
+        '<div class="text-md-center"><button class="btn btn-success" id="submit">Submit answer</button></div><br><br>'
+    )
+    $('#submit').click(() => {
+        openNewTab('../index.html', `<%=problem._id%>&<%=contestId%>IDE`)
+    })
+    <%}%>
+</script>
+<!--<script src='../js/viewProblem.js'></script>-->
+</body>
+</html>

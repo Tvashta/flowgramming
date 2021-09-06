@@ -80,6 +80,6 @@
 
 .contact-clean form .btn-primary {
     background-color: #3098f8 !important;
-    margin-top: 15px;
+    display: inline-block;
     color: #fff;
 }

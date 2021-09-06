@@ -1,3 +1,23 @@
+/*
+ # *************************************************************************************
+ # Copyright (C) 2021 Ritwik Murali, Harshit Agarwal, Rajkumar S, Gali Mary Sanjana
+ # This file is part of Flowgramming <https://github.com/flowgrammers-org/flowgramming>.
+ #
+ # Flowgramming is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ #
+ # Flowgramming is distributed in the hope that it will be useful,
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ # GNU General Public License for more details.
+ #
+ # You should have received a copy of the GNU General Public License
+ # along with Flowgramming.  If not, see <http://www.gnu.org/licenses/>.
+ # *************************************************************************************
+ */
+
 window.onload = () => {
     let contestId = '',
         problemId = ''
@@ -5,6 +25,7 @@ window.onload = () => {
         contestId = window.name.split('&')[1]
         problemId = window.name.split('&')[0]
     } else problemId = window.name
+    console.log(window.name)
     fetch('http://localhost:5000/problems/' + problemId)
         .then((response) => response.json())
         .then((x) => {
@@ -15,10 +36,10 @@ window.onload = () => {
                 x.problemStatement +
                 '</p><h4 style="color: var(--bs-info); text-decoration: underline;">Constraints</h4>'
 
-            if(x.constraints) {
-            x.constraints.map((y) => {
-                html += '<p>' + escapeHtml(y) + '</p>'
-            })
+            if (x.constraints) {
+                x.constraints.map((y) => {
+                    html += '<p>' + escapeHtml(y) + '</p>'
+                })
             }
 
             html +=
