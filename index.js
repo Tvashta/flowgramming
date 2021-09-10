@@ -68,7 +68,11 @@ app.get('/problem/:id', async (req, res) => {
         .catch((err) => res.send(err))
 })
 
-app.get('/contest/problem/:cid&:id', async (req, res) => {
+app.get('/createProblem', (req, res) => {
+    res.render('createProblem.ejs')
+})
+
+app.get('/contestProblem/:cid&:id', async (req, res) => {
     await axios
         .get(serverUrl + '/problems/' + req.params.id)
         .then((problem) => {

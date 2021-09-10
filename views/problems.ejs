@@ -1,131 +1,4 @@
 <%- include ("./partials/header.ejs") %>
-<section class='contact-clean'>
-    <form id='addproblem'>
-        <h2 class='text-info'>Add a Problem</h2>
-        <div class='mb-3'>
-            <input
-                    class='form-control'
-                    placeholder='Name'
-                    type='text'
-                    name='name'
-            />
-        </div>
-        <div class='mb-3'>
-            <input
-                    class='form-control'
-                    placeholder='Problem Statement'
-                    type='text'
-                    name='problemStatement'
-            />
-        </div>
-        <div class='mb-3'>
-            <ul id='constraintsList'></ul>
-            <input
-                    class='form-control d-inline-block w-75'
-                    placeholder='Constraints'
-                    id='constraints'
-                    type='text'
-                    name='constraints'
-            />
-            <button
-                    class='btn btn-primary'
-                    onclick='addValue(event)'
-                    name='constraints'
-                    type='button'
-            >
-                +
-            </button>
-
-        </div>
-        <div class='mb-3'>
-            <ul id='sampleInputList'></ul>
-            <input
-                    class='form-control d-inline-block w-75'
-                    placeholder='Sample Input'
-                    id='sampleInput'
-                    type='text'
-                    name='sampleInput'
-            />
-            <button
-                    class='btn btn-primary'
-                    onclick='addValue(event)'
-                    name='sampleInput'
-                    type='button'
-            >
-                +
-            </button>
-        </div>
-        <div class='mb-3'>
-            <ul id='sampleOutputList'></ul>
-            <input
-                    class='form-control d-inline-block w-75'
-                    placeholder='Sample Output'
-                    id='sampleOutput'
-                    type='text'
-                    name='sampleOutput'
-            />
-            <button
-                    class='btn btn-primary'
-                    onclick='addValue(event)'
-                    name='sampleOutput'
-                    type='button'
-            >
-                +
-            </button>
-
-        </div>
-        <div class='mb-3'>
-            <input
-                    class='form-control'
-                    type='text'
-                    name='explanation'
-                    placeholder='Explanation'
-            />
-        </div>
-        <!--    <input type='file' name='image'/>-->
-        <div class='mb-3'>
-            <input
-                    class='form-control'
-                    type='number'
-                    name='timeLimit'
-                    placeholder='Time Limit [in s]'
-            />
-        </div>
-        <div class='mb-3'>
-            <input
-                    class='form-control'
-                    type='number'
-                    name='memoryLimit'
-                    placeholder='Memory Limit [in MB]'
-            />
-        </div>
-        <div class='mb-3'>
-            <input
-                    class='form-control d-inline-block w-75'
-                    placeholder='Problem Type'
-                    id='problemType'
-                    type='text'
-                    name='problemType'
-            />
-            <button
-                    class='btn btn-primary'
-                    onclick='addValue(event)'
-                    name='problemType'
-                    type='button'
-            >
-                +
-            </button>
-            <ul id='problemTypeList'></ul>
-        </div>
-        <div class='mb-3'>
-            <input type="radio" name="visibility" id="public" value='public' checked>
-            <label for="public">Public</label>
-            <input type="radio" name="visibility" id="private" value='private'>
-            <label for="private">Private</label>
-        </div>
-        <button class='btn btn-primary' type='submit'>Add</button>
-    </form>
-</section>
 <section id='problemHeaderDiv'>
     <div class='container'>
         <br>
@@ -135,7 +8,7 @@
         <br>
     </div>
 </section>
-<div id='problemsDiv'>
+<div id='problemsDiv' class='pb-200p'>
     <div class='container block-heading'>
         <div class='table-responsive'>
             <table class='table'>
@@ -168,7 +41,6 @@
 </div>
 
 
-<ul class='text-center' id='problems'></ul>
 
 <%- include ("./partials/footer.ejs") %>
 
