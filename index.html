@@ -511,6 +511,13 @@
                     })
             }
         }
+        var message_to_send = document.getElementById('message-to-send')
+        message_to_send.addEventListener('keyup', function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault()
+                document.getElementById('chatsend').click()
+            }
+        })
         $('#zoomin').on('click', function () {
             if (indexOfArr < zoomArr.length - 1) {
                 element.css('transform', `scale(${zoomArr[++indexOfArr]})`)
