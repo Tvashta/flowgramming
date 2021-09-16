@@ -132,37 +132,15 @@
     </main>
 </div>
 </body>
-<footer class="page-footer dark">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
-                <h5>Get started</h5>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Login</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <h5>About us</h5>
-                <ul>
-                    <li><a href="#">Contact us</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-<script src='../js/build/codeVendor.js'></script>
-<script src='../js/build/codeMain.js'></script>
+
 <script>
-    <%if(contestId){%>
+    if(contestId){
     $('#problem').append(
         '<div class="text-md-center"><button class="btn btn-success" id="submit">Submit answer</button></div><br><br>'
     )
     $('#submit').click(() => {
         openNewTab('../index.html', `<%=problem._id%>&<%=contestId%>IDE`)
     })
-    <%}%>
+    }
 </script>
-<!--<script src='../js/viewProblem.js'></script>-->
-</body>
-</html>
+<%- include ("./partials/footer.ejs") %>

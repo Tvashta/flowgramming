@@ -1,0 +1,102 @@
+<%- include ("./partials/header.ejs") %>
+
+<main class="page pricing-table-page">
+    <section class="clean-block clean-pricing dark">
+        <br> <br>
+        <button class="btn btn-info" id='newContestButton' onclick="window.location.href='/contests/new'"><strong>Create New Contest</strong></button>
+        <div class="container" id="allOngoingContestsDiv">
+            <div class="block-heading">
+                <h2 class="text-info">Ongoing Contests</h2>
+                <p>Here is a list of all currently ongoing contests</p><br>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Contest ID</th>
+                                <th>Contest Name</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Authors</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% ongoingContests.forEach((contest)=> { %>
+                                <tr>
+                                    <td>
+                                        <span class="openContest" data-id = <%=contest.contestID%> >
+                                            <a href="/contests/<%=contest.contestID%>"><%= contest.contestID %></a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <%= contest.name %>
+                                    </td>
+                                    <td>
+                                        <%= new Date(contest.contestStartTime).toLocaleString('en-IN') %>
+                                    </td>
+                                    <td>
+                                        <%= new Date(contest.contestEndTime).toLocaleString('en-IN') %>
+                                    </td>
+                                    <td>
+                                        <% if(contest.organizer) { %> 
+                                            <%= contest.organizer.firstName+ ' ' +contest.organizer.lastName %>
+                                        <% } else { %>
+                                            Test User
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="container" id="allContestsDiv">
+            <div class="block-heading">
+                <h2 class="text-info">All Contests</h2>
+                <p>Here is a list of all contests</p><br>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Contest ID</th>
+                                <th>Contest Name</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Authors</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% allContests.forEach((contest)=> { %>
+                                <tr>
+                                    <td>
+                                        <span class="openContest" data-id = <%=contest.contestID%> >
+                                            <a href="/contests/<%=contest.contestID%>"><%= contest.contestID %></a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <%= contest.name %>
+                                    </td>
+                                    <td>
+                                        <%= new Date(contest.contestStartTime).toLocaleString('en-IN') %>
+                                    </td>
+                                    <td>
+                                        <%= new Date(contest.contestEndTime).toLocaleString('en-IN') %>
+                                    </td>
+                                    <td>
+                                        <% if(contest.organizer) { %> 
+                                            <%= contest.organizer.firstName+ ' ' +contest.organizer.lastName %>
+                                        <% } else { %>
+                                            Test User
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<%- include ("./partials/footer.ejs") %>
