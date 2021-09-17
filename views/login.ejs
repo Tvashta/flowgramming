@@ -1,0 +1,58 @@
+<%- include ("./partials/header.ejs") %>
+
+<main class="page">
+    <section class="clean-block about-us">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Login</h2>
+                <p>
+                    Use your microsoft account credentials to log in to
+                    our website and access contests.
+                </p>
+                <section class="login-clean">
+                    <form method="post" id="form">
+                        <h2 class="visually-hidden">Login Form</h2>
+                        <div class="illustration">
+                            <i
+                                class="icon ion-ios-lightbulb"
+                                style="color: var(--bs-info)"
+                            ></i>
+                        </div>
+                        <div class="mb-3">
+                            <input
+                                class="form-control"
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                id="email-input"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <input
+                                class="form-control"
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                id="password-input"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <button
+                                class="btn btn-primary d-block w-100"
+                                type="submit"
+                            >
+                                Log In
+                            </button>
+                        </div>
+                        <a class="forgot" href="#"
+                            >Forgot your email or password?</a
+                        >
+                    </form>
+                </section>
+            </div>
+        </div>
+    </section>
+</main>
+
+<%- include ("./partials/footer.ejs") %>
+<script src='../js/login.js'></script>

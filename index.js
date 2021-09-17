@@ -22,6 +22,10 @@ const express = require('express')
 const serveIndex = require('serve-index')
 const ejs = require('ejs')
 const axios = require('axios')
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+const sessionSecret = require('./config/session').SECRET;
+const cors = require('cors')
 
 const app = express()
 app.use('/', express.static('.'), serveIndex('.', { icons: true }))
@@ -30,6 +34,16 @@ console.log('Flowgramming listening at http://localhost:3000')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+
+const oneDay = 1000 * 60 * 60 * 24;
+//session middleware
+app.use(sessions({
+    secret: sessionSecret,
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false
+}));
+app.use(cookieParser());
 
 const serverUrl = 'http://localhost:5000'
 
@@ -126,3 +140,20 @@ app.get('/contests/:id', async (req, res) => {
         .catch((err) => res.send(err))
 });
 
+app.get('/login', (req,res)=>{
+    res.render('login.ejs');
+});
+
+app.post('/users/login', async(req,res) => {
+    var body = req.body;
+    await axios 
+          .post(serverUrl+'/users/login', body)
+          .then((user) => {
+            res.send(user.data);
+          });
+});
+
+
+app.post('/test', (req,res)=> {
+    res.send("cool")
+});
