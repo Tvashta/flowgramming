@@ -64,10 +64,20 @@ let mainCss = [
     'css/chat.css',
 ]
 let functionCss = ['css/vendor/bootstrap.min.css', 'css/functions.css']
+
 let codeCss = [
     'css/vendor/bootstrap.min.css',
     'css/code.css',
     'css/vendor/prism.css',
+]
+
+let backendCss = [
+    'css/vendor/bootstrapMin.css',
+    'css/form.css',
+    'css/baguetteBox.min.css',
+    'css/loginForm.css',
+    'css/vendor/vanilla-zoom.min.css',
+    'css/app.css',
 ]
 
 let codeVendor = [
@@ -112,6 +122,15 @@ gulp.task('concat', function () {
         .pipe(gulp.dest('css/build'))
     gulp.src(codeCss)
         .pipe(concat('code.css'))
+        .pipe(
+            uglifyCss({
+                maxLineLen: 80,
+                uglyComments: true,
+            })
+        )
+        .pipe(gulp.dest('css/build'))
+    gulp.src(backendCss)
+        .pipe(concat('backend.css'))
         .pipe(
             uglifyCss({
                 maxLineLen: 80,

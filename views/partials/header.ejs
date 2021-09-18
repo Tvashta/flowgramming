@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html>
+<% var locationUrl = "http://localhost:3000"%>
 <head>
     <meta charset='utf-8' />
-    <meta
-            name='viewport'
-            content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
-    />
-    <title>Problems List</title>
+    <title>Flowgramming</title>
     <link
-            rel='stylesheet'
-            href='../assets/bootstrap/css/bootstrap.min.css'
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="<%=locationUrl%>/assets/favicons/apple-touch-icon.png"
     />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="<%=locationUrl%>/assets/favicons/favicon-32x32.png"
+    />
+    <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="<%=locationUrl%>/assets/favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="<%=locationUrl%>/site.webmanifest" />
+    <meta content="white" name="theme-color" />
     <link
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i'
     />
-    <link rel='stylesheet' href='../css/Contact-Form-Clean.css' />
-    <link
-            rel='stylesheet'
-            href='../css/baguetteBox.min.css'
-    />
-    <link rel='stylesheet' href='../css/Login-Form-Clean.css' />
-    <link rel='stylesheet' href='../css/vanilla-zoom.min.css' />
-    <link rel='stylesheet' href='../css/app.css' />
+    <link rel='stylesheet' href='<%=locationUrl%>/css/build/backend.css' />
 </head>
 
 <body>
@@ -43,23 +48,23 @@
         <div class='collapse navbar-collapse' id='navcol-1'>
             <ul class='navbar-nav ms-auto'>
                 <li class='nav-item'>
-                    <a class='nav-link' href='landing.html'>Home</a>
+                    <a class='nav-link' href='<%=locationUrl%>/landing.html'>Home</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='/problems'
+                    <a class='nav-link' href='<%=locationUrl%>/problems'
                     >Problems</a
                     >
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='/contests'
+                    <a class='nav-link' href='<%=locationUrl%>/contests'
                     >Contests</a
                     >
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='login.html'>LOGIN</a>
+                    <a class='nav-link' href='<%=locationUrl%>/login.html'>LOGIN</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='profile.html'>PROFILE</a>
+                    <a class='nav-link' href='<%=locationUrl%>/profile.html'>PROFILE</a>
                 </li>
             </ul>
         </div>

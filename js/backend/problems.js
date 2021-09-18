@@ -35,11 +35,6 @@ $('#addproblem').on('submit', function (event) {
     addProblem()
 })
 
-$(document).on('click', '.openProblem', function (event) {
-    let id = $(event.target).attr('data-id')
-    location.assign('/problem/' + id)
-})
-
 function deleteProblem(id) {
     return fetch('http://localhost:5000/problems/' + id, {
         method: 'DELETE',

@@ -22,14 +22,21 @@ const express = require('express')
 const serveIndex = require('serve-index')
 const ejs = require('ejs')
 const axios = require('axios')
+const cors = require('cors')
 
 const app = express()
-app.use('/', express.static('.'), serveIndex('.', { icons: true }))
+
 app.listen(3000)
 console.log('Flowgramming listening at http://localhost:3000')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static(__dirname))
+app.use(cors())
+
+app.get('/', (req, res) => {
+    res.sendFile('/index.html')
+})
 
 const serverUrl = 'http://localhost:5000'
 
@@ -47,14 +54,14 @@ function getUserId() {
     //Temporarily using localStorage
 }
 
-app.get('/problems/all', async(req, res) => {
+app.get('/problems/all', async (req, res) => {
     await axios
         .get(serverUrl + '/problems')
         .then((problems) => {
-            res.json(problems.data);
+            res.json(problems.data)
         })
         .catch((err) => res.send(err))
-});
+})
 
 app.get('/problem/:id', async (req, res) => {
     await axios
@@ -72,7 +79,7 @@ app.get('/createProblem', (req, res) => {
     res.render('createProblem.ejs')
 })
 
-app.get('/contestProblem/:cid&:id', async (req, res) => {
+app.get('/contest/problem/:cid&:id', async (req, res) => {
     await axios
         .get(serverUrl + '/problems/' + req.params.id)
         .then((problem) => {
@@ -93,33 +100,24 @@ app.get('/contests', async (req, res) => {
             await axios
                 .get(serverUrl + '/contest/ongoing')
                 .then((ongoingContests) => {
-                    res.render('contests.ejs', {allContests: allContests.data, ongoingContests: ongoingContests.data});
+                    res.render('contests.ejs', {
+                        allContests: allContests.data,
+                        ongoingContests: ongoingContests.data,
+                    })
                 })
                 .catch((err) => res.send(err))
         })
         .catch((err) => res.send(err))
-});
+})
 
-app.get('/contests/new', async(req, res) => {
+app.get('/contest/new', async (req, res) => {
     await axios
         .get(serverUrl + '/problems')
         .then((problems) => {
             res.render('createContest.ejs', { problems: problems.data })
         })
         .catch((err) => res.send(err))
-});
-
-app.post('/contests/create', async(req, res) => {
-    var body = req.body;
-    console.log(body);
-    // await axios
-    //     .post(serverUrl + '/contest/new', body)
-    //     .then((contest) => {
-    //         res.redirect('/contests/'+contest.contestID);
-    //     })
-    //     .catch((err) => res.send(err))
-    res.send({contestID: 'TEST01'})
-});
+})
 
 app.get('/contests/:id', async (req, res) => {
     await axios
@@ -128,5 +126,16 @@ app.get('/contests/:id', async (req, res) => {
             res.render('viewContest.ejs', { contest: contest.data })
         })
         .catch((err) => res.send(err))
-});
+})
 
+app.post('/contest/create', async (req, res) => {
+    var body = req.body
+    await axios
+        .post(serverUrl + '/contest/new', body)
+        .then((contest) => {
+            console.log(contest.data.contestID)
+            // res.redirect('/contests/'+contest.data.contestID);
+        })
+        .catch((err) => res.send(err))
+    // res.send({contestID: 'TEST01'})
+})

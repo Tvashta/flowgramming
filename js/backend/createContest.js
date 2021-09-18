@@ -1,11 +1,17 @@
 var problems = []
 $(document).ready(() => {
-    fetch('/problems')
+    getAllProblems()
+})
+
+async function getAllProblems() {
+    await fetch('/problems/all')
         .then((response) => response.json())
         .then((data) => {
             problems = data
+            console.log(problems)
         })
-})
+}
+
 $('#createContestBtn').click(() => {
     var appendString =
         '<br><div class="problem"><label class="w-25 float-md-left">Problem Name</label><select name="problems" class="form-control w-50" autocomplete="on">'
@@ -18,15 +24,15 @@ $('#createContestBtn').click(() => {
     appendString +=
         '<label class="w-25 float-md-left">Points</label><input type="number" class="form-control w-50">'
     appendString +=
-        '<button class="btn-sm btn btn-danger form-inline delete-btn"><i class="far fa-trash-alt"></i></button></div>'
+        '<button class="btn-sm btn btn-danger form-inline delete-btn">Delete</button></div>'
     $('.problems-group').append(appendString)
 })
 
 $(document).on('click', '.delete-btn', (e) => {
-    $(e.target.parentNode.parentNode).remove()
+    $(e.target.parentNode).remove()
 })
 
-$('#submit-btn').click(() => {
+$('#submit-btn').click(async () => {
     var formData = $('#form').serializeArray()
     console.log(formData)
     var data = {}
@@ -54,22 +60,24 @@ $('#submit-btn').click(() => {
             continue
         else data[formData[i].name] = formData[i].value
     }
-    var contestStartTime = startDate + 'T' + startTime + '+05:30'
-    var contestEndTime = endDate + 'T' + endTime + '+05:30'
+    var contestStartTime = startDate + 'T' + startTime + '+00:00'
+    var contestEndTime = endDate + 'T' + endTime + '+00:00'
     data.contestStartTime = contestStartTime
     data.contestEndTime = contestEndTime
 
-    console.log(data)
-
-    fetch('/contest/new', {
+    console.log(data, '1')
+    await fetch('http://localhost:3000/contest/create', {
         method: 'POST',
+        referrerPolicy: 'no-referrer',
         headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
     })
         .then((response) => response.json())
         .then((data) => {
-            window.location.replace('/contest/view/' + data.contestID)
+            console.log(data)
+            window.location.replace('/contests/' + data.contestID)
         })
 })

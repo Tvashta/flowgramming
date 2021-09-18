@@ -30,15 +30,23 @@ window.onload = async () => {
 
     console.log(joined)
     console.log(window.name)
-    
+
     if (joined) {
         $('.problemLinks').each(function () {
             var id = this.id
             var problemID = id.split('-')[1]
             var problemName = $(this).text()
-            var contestID = $('#getContestID').text();
-            $(this).html('<a href="/contest/problem/'+ contestID + '&' + problemID+'">'+problemName+'</a>')
-        });
+            var contestID = $('#getContestID').text()
+            $(this).html(
+                '<a href="/contest/problem/' +
+                    contestID +
+                    '&' +
+                    problemID +
+                    '">' +
+                    problemName +
+                    '</a>'
+            )
+        })
         $('#join').append(
             '<button class="btn btn-info float-md-right" onclick=\'exitContest()\'>Leave Contest</button>'
         )
@@ -52,16 +60,16 @@ window.onload = async () => {
 }
 
 async function joinContest() {
-    var postData ={
+    var postData = {
         id: localStorage.getItem('userId'),
-        contestID: window.name
+        contestID: window.name,
     }
     await fetch('http://localhost:5000/users/join', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(postData)
+        body: JSON.stringify(postData),
     })
     location.reload()
 }
@@ -71,16 +79,16 @@ function showModal() {
 }
 
 async function exitContest() {
-    var postData  = {
+    var postData = {
         id: localStorage.getItem('userId'),
-        contestID: window.name
+        contestID: window.name,
     }
     await fetch('http://localhost:5000/users/exit', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(postData)
+        body: JSON.stringify(postData),
     })
     location.reload()
 }

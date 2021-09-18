@@ -6,7 +6,7 @@
 <div class="container contest-details">
     <div class="container p-4 information">
         <div id='contest'>
-        <p style="display: none;" id="getContestID"><%=contest._id%></p>
+        <p style="display: none;" id="getContestID"><%=contest.contestID%></p>
         <h2><%=contest.name%></h2>
         <p><%=contest.description%></p>
         <div class="container">
@@ -32,7 +32,7 @@
               <% var index = 1; contest.problems.forEach((problem)=> { %>
                   <tr>
                     <th scope="row"><%=index%></th>
-                    <td class='problemLinks' id='problemLink-<%=problem._id%>'><%= problem.problemObject.name %>
+                    <td class='problemLinks' id='problemLink-<%=problem.problemObject._id%>'><%= problem.problemObject.name %>
                     </td>
                     <td><%= problem.points %></td>
                     <% if(problem.problemObject.authors.length > 0) { %>
@@ -63,5 +63,5 @@
 
 </div>
 
-<script src='../js/viewContest.js'></script>
+<script src='../js/backend/viewContest.js'></script>
 <%- include ("./partials/footer.ejs") %>
