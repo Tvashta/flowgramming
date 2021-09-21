@@ -31,6 +31,14 @@ function postReq(path, payload) {
     })
 }
 
+async function getReq(url) {
+    await fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+            return data
+        })
+}
+
 function escapeHtml(string) {
     let entityMap = {
         '&': '&amp;',

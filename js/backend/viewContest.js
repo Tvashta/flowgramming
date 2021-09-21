@@ -25,11 +25,12 @@ window.onload = async () => {
     )
         .then((res) => res.json())
         .then((user) => {
-            if (user.joinedContests.includes(window.name)) joined = true
+            if (user.joinedContests.includes($('#getContestID').text()))
+                joined = true
         })
 
     console.log(joined)
-    console.log(window.name)
+    console.log($('#getContestID').text())
 
     if (joined) {
         $('.problemLinks').each(function () {
@@ -60,16 +61,9 @@ window.onload = async () => {
 }
 
 async function joinContest() {
-    var postData = {
+    await postReq('http://localhost:5000/users/join', {
         id: localStorage.getItem('userId'),
-        contestID: window.name,
-    }
-    await fetch('http://localhost:5000/users/join', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postData),
+        contestID: $('#getContestID').text(),
     })
     location.reload()
 }
@@ -79,16 +73,9 @@ function showModal() {
 }
 
 async function exitContest() {
-    var postData = {
+    await postReq('http://localhost:5000/users/exit', {
         id: localStorage.getItem('userId'),
-        contestID: window.name,
-    }
-    await fetch('http://localhost:5000/users/exit', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postData),
+        contestID: $('#getContestID').text(),
     })
     location.reload()
 }
