@@ -22,9 +22,9 @@ const express = require('express')
 const serveIndex = require('serve-index')
 const ejs = require('ejs')
 const axios = require('axios')
-const cookieParser = require("cookie-parser");
-const sessions = require('express-session');
-const sessionSecret = require('./config/session').SECRET;
+const cookieParser = require('cookie-parser')
+const sessions = require('express-session')
+const sessionSecret = require('./config/session').SECRET
 const cors = require('cors')
 
 const app = express()
@@ -41,24 +41,30 @@ app.get('/', (req, res) => {
     res.sendFile('/index.html')
 })
 
-const oneDay = 1000 * 60 * 60 * 24;
+const oneDay = 1000 * 60 * 60 * 24
 //session middleware
-app.use(sessions({
-    secret: sessionSecret,
-    saveUninitialized:true,
-    cookie: { maxAge: oneDay },
-    resave: false
-}));
-var session;
-app.use(cookieParser());
+app.use(
+    sessions({
+        secret: sessionSecret,
+        saveUninitialized: true,
+        cookie: { maxAge: oneDay },
+        resave: false,
+    })
+)
+var session
+app.use(cookieParser())
 
 const serverUrl = 'http://localhost:5000'
 
 app.get('/problems', async (req, res) => {
+    var page_name = 'problems'
     await axios
         .get(serverUrl + '/problems')
         .then((problems) => {
-            res.render('problems.ejs', { problems: problems.data })
+            res.render('problems.ejs', {
+                problems: problems.data,
+                page_name: 'problems',
+            })
         })
         .catch((err) => res.send(err))
 })
@@ -68,14 +74,14 @@ function getUserId() {
     //Temporarily using localStorage
 }
 
-app.get('/problems/all', async(req, res) => {
+app.get('/problems/all', async (req, res) => {
     await axios
         .get(serverUrl + '/problems')
         .then((problems) => {
-            res.json(problems.data);
+            res.json(problems.data)
         })
         .catch((err) => res.send(err))
-});
+})
 
 app.get('/problem/:id', async (req, res) => {
     await axios
@@ -111,33 +117,37 @@ app.get('/contests', async (req, res) => {
             await axios
                 .get(serverUrl + '/contest/ongoing')
                 .then((ongoingContests) => {
-                    res.render('contests.ejs', {allContests: allContests.data, ongoingContests: ongoingContests.data});
+                    res.render('contests.ejs', {
+                        allContests: allContests.data,
+                        ongoingContests: ongoingContests.data,
+                        page_name: 'contest',
+                    })
                 })
                 .catch((err) => res.send(err))
         })
         .catch((err) => res.send(err))
-});
+})
 
-app.get('/contests/new', async(req, res) => {
+app.get('/contests/new', async (req, res) => {
     await axios
         .get(serverUrl + '/problems')
         .then((problems) => {
             res.render('createContest.ejs', { problems: problems.data })
         })
         .catch((err) => res.send(err))
-});
+})
 
-app.post('/contests/create', async(req, res) => {
-    var body = req.body;
-    console.log(body);
+app.post('/contests/create', async (req, res) => {
+    var body = req.body
+    console.log(body)
     // await axios
     //     .post(serverUrl + '/contest/new', body)
     //     .then((contest) => {
     //         res.redirect('/contests/'+contest.contestID);
     //     })
     //     .catch((err) => res.send(err))
-    res.send({contestID: 'TEST01'})
-});
+    res.send({ contestID: 'TEST01' })
+})
 
 app.get('/contests/:id', async (req, res) => {
     await axios
@@ -146,27 +156,30 @@ app.get('/contests/:id', async (req, res) => {
             res.render('viewContest.ejs', { contest: contest.data })
         })
         .catch((err) => res.send(err))
-});
+})
 
-app.get('/login', (req,res)=>{
-    res.render('login.ejs');
-});
+app.get('/login', (req, res) => {
+    res.render('login.ejs', { page_name: 'login' })
+})
 
-app.post('/users/login', async(req,res) => {
-    var body = req.body;
-    await axios 
-          .post(serverUrl+'/users/login', body)
-          .then((user) => {
-              user = user.data;
-              if(user.error) {
-                  // TO-DO AUTH ERROR
-              } else {
-                  session = req.session;
-                  session.user = user;
-                  console.log(req.session)
-              }
-            res.send(user);
-          });
-});
+app.post('/users/login', async (req, res) => {
+    var body = req.body
+    await axios.post(serverUrl + '/users/login', body).then((user) => {
+        user = user.data
+        if (user.error) {
+            // TO-DO AUTH ERROR
+        } else {
+            session = req.session
+            session.user = user
+            console.log(req.session)
+        }
+        res.send(user)
+    })
+})
 
-
+app.get('/profile', (req, res) => {
+    res.render('profile.ejs', { page_name: 'profile' })
+})
+app.get('/landing', (req, res) => {
+    res.render('landing.ejs', { page_name: 'landing' })
+})

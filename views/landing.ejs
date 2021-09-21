@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+<%- include ("./partials/header.ejs") %>
     <head>
         <meta charset="utf-8" />
         <meta
@@ -24,44 +23,10 @@
         <link rel="stylesheet" href="../css/vanilla-zoom.min.css" />
         <link rel="stylesheet" href="../css/app.css" />
     </head>
-
+<br>
+<br>
+<br>
     <body>
-        <nav
-            class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar"
-        >
-            <div class="container">
-                <a class="navbar-brand logo" href="#">Flowgramming</a
-                ><button
-                    data-bs-toggle="collapse"
-                    class="navbar-toggler"
-                    data-bs-target="#navcol-1"
-                >
-                    <span class="visually-hidden">Toggle navigation</span
-                    ><span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="landing.html"
-                                >Home</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./problems">Problems</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./contests">Contests</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">LOGIN</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile">PROFILE</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
         <main class="page">
             <section class="clean-block about-us">
                 <div class="container">
@@ -99,4 +64,5 @@
         <script src="assets/js/vanilla-zoom.js"></script>
         <script src="assets/js/theme.js"></script>
     </body>
-</html>
+
+    <%- include ("./partials/footer.ejs") %>

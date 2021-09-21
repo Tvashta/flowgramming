@@ -43,23 +43,47 @@
         <div class='collapse navbar-collapse' id='navcol-1'>
             <ul class='navbar-nav ms-auto'>
                 <li class='nav-item'>
-                    <a class='nav-link' href='landing.html'>Home</a>
+                    <a <% if (page_name === 'landing') { %>
+                        class="nav-link active"
+                        <%} else { %>
+                        class="nav-link"
+                        <% } %>
+                        href='/landing'>Home</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='/problems'
-                    >Problems</a
-                    >
+                    <a 
+                        <% if (page_name === 'problems') { %>
+                        class="nav-link active"
+                        <%} else { %>
+                        class="nav-link"
+                        <% } %>
+                        href='/problems'>
+                        Problems</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='/contests'
+                    <a <% if (page_name === 'contest') { %>
+                        class="nav-link active"
+                        <%} else { %>
+                        class="nav-link"
+                        <% } %> href='/contests'
                     >Contests</a
                     >
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='/login'>LOGIN</a>
+                    <a <% if (page_name === 'login') { %>
+                        class="nav-link active"
+                        <%} else { %>
+                        class="nav-link"
+                        <% } %> href='/login'
+                    >LOGIN</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='profile.html'>PROFILE</a>
+                    <a <% if (page_name === 'profile') { %>
+                        class="nav-link active"
+                        <%} else { %>
+                        class="nav-link"
+                        <% } %> href='/profile'
+                    >PROFILE</a>
                 </li>
             </ul>
         </div>

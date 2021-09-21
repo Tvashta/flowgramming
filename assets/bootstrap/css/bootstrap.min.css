@@ -10636,7 +10636,7 @@ body {
     padding-top: 20px;
     padding-bottom: 20px;
 }
-.clean-testimonial-item {
+.clean-profile-item {
     border: 1px solid #eaeaea;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
     margin-bottom: 30px;
@@ -10644,19 +10644,19 @@ body {
     color: #212529;
     text-align: left;
 }
-.clean-testimonial-item .card-body {
+.clean-profile-item .card-body {
     padding: 40px;
 }
-.clean-testimonial-item h3,
-.clean-testimonial-item .h3 {
+.clean-profile-item h3,
+.clean-profile-item .h3 {
     font-size: 1.1em;
     font-weight: 600;
 }
-.clean-testimonial-item p {
+.clean-profile-item p {
     font-size: 0.9em;
 }
-.clean-testimonial-item h4,
-.clean-testimonial-item .h4 {
+.clean-profile-item h4,
+.clean-profile-item .h4 {
     font-size: 0.9em;
     color: #3b99e0;
 }
@@ -10872,7 +10872,7 @@ body {
     .clean-block.clean-post .post-body {
         padding: 70px 150px;
     }
-    .clean-block.clean-testimonials .item {
+    .clean-block.clean-profiles .item {
         margin-bottom: 0px;
     }
     .clean-block.clean-post .post-body {
