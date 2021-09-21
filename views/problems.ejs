@@ -1,5 +1,6 @@
 <%- include ("./partials/header.ejs") %>
 <section class='contact-clean'>
+    <% if(currentUser.rules.includes(facultyRuleID)) { %>
     <form id='addproblem'>
         <h2 class='text-info'>Add a Problem</h2>
         <div class='mb-3'>
@@ -125,6 +126,7 @@
         </div>
         <button class='btn btn-primary' type='submit'>Add</button>
     </form>
+    <% } %>
 </section>
 <section id='problemHeaderDiv'>
     <div class='container'>
@@ -151,7 +153,7 @@
                 <% problems.map((problem, index) => { %>
                     <tr>
                         <td> <%= (index + 1) %> </td>
-                        <td><span class="openProblem" data-id=<%=problem._id%>> <%= problem.name %> </span></td>
+                        <td><span class="openProblem" data-id=<%=problem._id%>><a href='/problem/<%=problem._id%>'><%= problem.name %></a> </span></td>
                         <% if (problem.author) { %>
                             <td> <%= problem.author.firstName %>  <%= problem.author.lastName %> </td>
                         <% } else { %>

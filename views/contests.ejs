@@ -3,7 +3,9 @@
 <main class="page pricing-table-page">
     <section class="clean-block clean-pricing dark">
         <br> <br>
-        <button class="btn btn-info" id='newContestButton' onclick="window.location.href='/contests/new'"><strong>Create New Contest</strong></button>
+        <% if(currentUser.rules.includes(facultyRuleID)) { %>
+            <button class="btn btn-info" id='newContestButton' onclick="window.location.href='/contests/new'"><strong>Create New Contest</strong></button>
+        <% } %>
         <div class="container" id="allOngoingContestsDiv">
             <div class="block-heading">
                 <h2 class="text-info">Ongoing Contests</h2>

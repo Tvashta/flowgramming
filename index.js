@@ -51,10 +51,24 @@ app.use(sessions({
 }));
 var session;
 app.use(cookieParser());
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.session.user;
+    res.locals.facultyRuleID = 'Faculty';
+    next();
+});
+
+function checkUserLoggedIn (req, res, next) {
+    if(req.session.user) {
+        next();
+    }
+    else {
+        res.redirect('/login')
+    }
+}
 
 const serverUrl = 'http://localhost:5000'
 
-app.get('/problems', async (req, res) => {
+app.get('/problems', checkUserLoggedIn, async (req, res) => {
     await axios
         .get(serverUrl + '/problems')
         .then((problems) => {
@@ -68,7 +82,7 @@ function getUserId() {
     //Temporarily using localStorage
 }
 
-app.get('/problems/all', async(req, res) => {
+app.get('/problems/all', checkUserLoggedIn, async(req, res) => {
     await axios
         .get(serverUrl + '/problems')
         .then((problems) => {
@@ -77,7 +91,7 @@ app.get('/problems/all', async(req, res) => {
         .catch((err) => res.send(err))
 });
 
-app.get('/problem/:id', async (req, res) => {
+app.get('/problem/:id', checkUserLoggedIn, async (req, res) => {
     await axios
         .get(serverUrl + '/problems/' + req.params.id)
         .then((problem) => {
@@ -89,7 +103,7 @@ app.get('/problem/:id', async (req, res) => {
         .catch((err) => res.send(err))
 })
 
-app.get('/contest/problem/:cid&:id', async (req, res) => {
+app.get('/contest/problem/:cid&:id', checkUserLoggedIn, async (req, res) => {
     await axios
         .get(serverUrl + '/problems/' + req.params.id)
         .then((problem) => {
@@ -103,8 +117,7 @@ app.get('/contest/problem/:cid&:id', async (req, res) => {
 
 // CONTESTS BACKEND
 
-app.get('/contests', async (req, res) => {
-    console.log(req.session)
+app.get('/contests', checkUserLoggedIn, async (req, res) => {
     await axios
         .get(serverUrl + '/contest/all')
         .then(async (allContests) => {
@@ -118,7 +131,7 @@ app.get('/contests', async (req, res) => {
         .catch((err) => res.send(err))
 });
 
-app.get('/contests/new', async(req, res) => {
+app.get('/contests/new', checkUserLoggedIn, async(req, res) => {
     await axios
         .get(serverUrl + '/problems')
         .then((problems) => {
@@ -127,19 +140,7 @@ app.get('/contests/new', async(req, res) => {
         .catch((err) => res.send(err))
 });
 
-app.post('/contests/create', async(req, res) => {
-    var body = req.body;
-    console.log(body);
-    // await axios
-    //     .post(serverUrl + '/contest/new', body)
-    //     .then((contest) => {
-    //         res.redirect('/contests/'+contest.contestID);
-    //     })
-    //     .catch((err) => res.send(err))
-    res.send({contestID: 'TEST01'})
-});
-
-app.get('/contests/:id', async (req, res) => {
+app.get('/contests/:id', checkUserLoggedIn, async (req, res) => {
     await axios
         .get(serverUrl + '/contest/id/' + req.params.id)
         .then((contest) => {
@@ -163,9 +164,8 @@ app.post('/users/login', async(req,res) => {
               } else {
                   session = req.session;
                   session.user = user;
-                  console.log(req.session)
               }
-            res.send(user);
+            res.redirect('/landing.html')
           });
 });
 
