@@ -28,12 +28,18 @@ const sessionSecret = require('./config/session').SECRET;
 const cors = require('cors')
 
 const app = express()
-app.use('/', express.static('.'), serveIndex('.', { icons: true }))
+
 app.listen(3000)
 console.log('Flowgramming listening at http://localhost:3000')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static(__dirname))
+app.use(cors())
+
+app.get('/', (req, res) => {
+    res.sendFile('/index.html')
+})
 
 const oneDay = 1000 * 60 * 60 * 24;
 //session middleware
@@ -43,6 +49,7 @@ app.use(sessions({
     cookie: { maxAge: oneDay },
     resave: false
 }));
+var session;
 app.use(cookieParser());
 
 const serverUrl = 'http://localhost:5000'
@@ -97,6 +104,7 @@ app.get('/contest/problem/:cid&:id', async (req, res) => {
 // CONTESTS BACKEND
 
 app.get('/contests', async (req, res) => {
+    console.log(req.session)
     await axios
         .get(serverUrl + '/contest/all')
         .then(async (allContests) => {
@@ -149,11 +157,16 @@ app.post('/users/login', async(req,res) => {
     await axios 
           .post(serverUrl+'/users/login', body)
           .then((user) => {
-            res.send(user.data);
+              user = user.data;
+              if(user.error) {
+                  // TO-DO AUTH ERROR
+              } else {
+                  session = req.session;
+                  session.user = user;
+                  console.log(req.session)
+              }
+            res.send(user);
           });
 });
 
 
-app.post('/test', (req,res)=> {
-    res.send("cool")
-});

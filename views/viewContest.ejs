@@ -14,9 +14,9 @@
           <strong>Organizer: </strong> <%= contest.organizer.firstName%>  <%= contest.organizer.lastName %>
           <% } %>
           <br>
-          <strong>Contest Start Time: </strong> <%= contest.contestStartTime%>
+          <strong>Contest Start Time: </strong> <%= new Date(contest.contestStartTime).toLocaleString('en-IN') %>
           <br>
-          <strong>Contest End Time: </strong> <%= contest.contestEndTime%>
+          <strong>Contest End Time: </strong> <%= new Date(contest.contestEndTime).toLocaleString('en-IN')%>
         </div>
         <br>
         <table class="table">

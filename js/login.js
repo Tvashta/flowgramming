@@ -32,33 +32,22 @@ async function loginUser() {
     }
 
     
-    // fetch('/users/login', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(formData),
-    // })
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         if (data.error) {
-    //             alert('Invalid Credentials')
-    //             console.log('Invalid Credentials')
-    //         } else {
-    //             alert('User logged in!')
-    //             localStorage.setItem('userId', data._id)
-    //             console.log('User logged in', data._id, data.firstName)
-    //         }
-    //     })
-
-    fetch('/test', {
+    fetch('/users/login', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({name: "username"})
+        body: JSON.stringify(formData),
     })
-    .then((data)=> {
-        console.log(data);
-    });
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.error) {
+                alert('Invalid Credentials')
+                console.log('Invalid Credentials')
+            } else {
+                alert('User logged in!')
+                console.log('User logged in', data._id, data.firstName)
+            }
+        })
+
 }
