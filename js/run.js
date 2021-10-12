@@ -599,7 +599,6 @@ async function handleForLoop(element) {
             if (vn in variables) {
                 globalEval(incrExp)
                 variables[vn].value = parseInt(globalEval(vn))
-                console.log('value ' + variables[vn].value)
             }
         }
     } catch (e) {
