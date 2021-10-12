@@ -598,7 +598,8 @@ async function handleForLoop(element) {
             let vn = incrExp.match(/[a-zA-z]*/)[0]
             if (vn in variables) {
                 globalEval(incrExp)
-                variables[vn].value = globalEval(vn)
+                variables[vn].value = parseInt(globalEval(vn))
+                console.log('value ' + variables[vn].value)
             }
         }
     } catch (e) {
